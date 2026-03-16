@@ -27,7 +27,25 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <nav className="bg-white p-4 px-30">
+          <ul className="flex gap-6 justify-center">
+            <li><a href="/" className="text-black hover:text-gray-500">Inicio</a></li>
+            <li><a href="/login" className="text-black hover:text-gray-500">Login</a></li>
+            <li className="relative group pb-2 -mb-2">
+              <a href="/juegos" className="text-black hover:text-gray-500">Juegos</a>
+              <ul className="absolute hidden group-hover:block bg-white shadow-lg p-2 rounded whitespace-nowrap top-full">
+                <li><a href="/juegos/dark-souls" className="block px-4 py-2 text-black hover:bg-gray-100">Dark Souls</a></li>
+                <li><a href="/juegos/elden-ring" className="block px-4 py-2 text-black hover:bg-gray-100">Elden Ring</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      <main>{children}</main>  
+
+    <footer className="bg-white p-4 text-center text-black">
+      <p>© 2026 Soulspedia</p>
+    </footer>
+      
       </body>
     </html>
   );
