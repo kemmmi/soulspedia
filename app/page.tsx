@@ -1,7 +1,22 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-black">
-      <div className="max-w-3xl text-center">
+    <main className="relative flex min-h-screen flex-col items-center justify-center p-24 overflow-hidden">
+      {/* Video de fondo */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/fondoinicio.mp4" type="video/mp4" />
+      </video>
+
+      {/* Overlay oscuro para legibilidad */}
+      <div className="absolute inset-0 bg-black/50 z-0" />
+
+      {/* Contenido encima del video */}
+      <div className="relative z-10 max-w-3xl text-center">
         <h1 className="text-5xl font-bold tracking-tight text-white mb-6">
           Bienvenido a Soulspedia
         </h1>
