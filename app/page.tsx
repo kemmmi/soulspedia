@@ -1,12 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-/** Misma separación entre letras que título, slogan y juegos */
+/** Misma separación entre letras en slogan y juegos */
 const heroTracking =
   "tracking-[0.06em] sm:tracking-[0.07em] md:tracking-[0.08em] lg:tracking-[0.09em] xl:tracking-[0.1em]";
 
+/** SOULSPEDIA: letras un poco más juntas */
+const titleTracking =
+  "tracking-[0.035em] sm:tracking-[0.04em] md:tracking-[0.045em] lg:tracking-[0.05em] xl:tracking-[0.055em]";
+
 const gameTitleClassName =
-  `block whitespace-nowrap bg-transparent text-[clamp(0.38rem,2.1vw,1.875rem)] font-semibold leading-none ${heroTracking} text-white no-underline outline-none ring-0 transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-0 lg:text-2xl xl:text-3xl`;
+  `block whitespace-nowrap bg-transparent text-[clamp(0.38rem,2.1vw,1.875rem)] font-semibold leading-none ${heroTracking} text-white/45 no-underline outline-none ring-0 transition-all duration-200 hover:text-white hover:[text-shadow:0_0_12px_rgba(252,211,77,0.65),0_0_26px_rgba(251,146,60,0.45),0_0_40px_rgba(234,88,12,0.25)] focus-visible:outline-none focus-visible:ring-0 lg:text-2xl xl:text-3xl`;
 
 export default function Home() {
   return (
@@ -35,35 +39,33 @@ export default function Home() {
             priority
           />
         </Link>
-        <Link
-          href="/login"
-          className="rounded-full bg-gradient-to-b from-neutral-200 via-neutral-300 to-neutral-500 px-8 py-2.5 text-xs font-semibold tracking-widest text-black shadow-md transition hover:brightness-110 md:text-sm"
-        >
-          LOGIN
-        </Link>
+        <div className="rounded-md bg-gradient-to-br from-white via-white/50 to-white/85 p-px shadow-[0_0_16px_rgba(255,255,255,0.12)] transition hover:from-white hover:via-white/70 hover:to-white">
+          <Link
+            href="/login"
+            className="block rounded-[5px] bg-black px-8 py-2.5 text-xs font-semibold tracking-widest text-amber-100 transition hover:text-amber-50 md:text-sm"
+          >
+            LOGIN
+          </Link>
+        </div>
       </header>
 
-      <div className="h-px w-full bg-neutral-600" aria-hidden />
-
       <main className="flex flex-1 flex-col items-center justify-center overflow-x-visible px-4 py-8 md:py-12">
-        <div className="flex w-full max-w-4xl flex-col items-center lg:max-w-7xl">
-          <section className="flex flex-col items-center text-center">
-            <h1
-              className={`inline-block border-b border-white pb-2.5 text-5xl font-semibold leading-none text-white drop-shadow-[0_0_32px_rgba(255,255,255,0.55)] sm:text-6xl sm:pb-3 md:text-7xl lg:text-8xl lg:drop-shadow-[0_0_40px_rgba(255,255,255,0.5)] ${heroTracking}`}
+        <div className="-mt-7 flex w-full max-w-4xl flex-col items-center text-center sm:-mt-9 md:-mt-11 lg:max-w-7xl">
+          <h1
+            className={`inline-block text-5xl font-semibold leading-none text-white drop-shadow-[0_0_32px_rgba(255,255,255,0.55)] sm:text-6xl md:text-7xl lg:text-8xl lg:drop-shadow-[0_0_40px_rgba(255,255,255,0.5)] ${titleTracking}`}
+          >
+            SOULSPEDIA
+          </h1>
+          <div className="mt-6 flex w-full justify-center overflow-visible sm:mt-7 md:mt-8">
+            <p
+              className={`inline-block min-w-min max-w-[100vw] px-2 text-center text-[clamp(0.5rem,2.4vw,1.875rem)] font-semibold leading-tight text-white whitespace-nowrap drop-shadow-[0_0_14px_rgba(255,255,255,0.4)] lg:text-2xl xl:text-3xl ${heroTracking}`}
             >
-              SOULSPEDIA
-            </h1>
-            <div className="mt-3 flex w-full justify-center overflow-visible sm:mt-4">
-              <p
-                className={`inline-block min-w-min max-w-[100vw] px-2 text-center text-[clamp(0.5rem,2.4vw,1.875rem)] font-semibold leading-tight text-white whitespace-nowrap drop-shadow-[0_0_14px_rgba(255,255,255,0.4)] lg:text-2xl xl:text-3xl ${heroTracking}`}
-              >
-                THE FLAME OF UNDERSTANDING - SO YOU NEVER GO HOLLOW
-              </p>
-            </div>
-          </section>
+              THE FLAME OF UNDERSTANDING - SO YOU NEVER GO HOLLOW
+            </p>
+          </div>
 
           <nav
-            className="mt-20 w-full overflow-visible px-2 sm:mt-24 sm:px-6 md:mt-28 md:px-10 lg:mt-32 lg:px-14"
+            className="mt-10 w-full overflow-visible px-2 sm:mt-14 sm:px-6 md:mt-16 md:px-10 lg:mt-20 lg:px-14"
             aria-label="Elegir juego"
           >
             <div className="mx-auto flex w-full max-w-7xl flex-nowrap items-center justify-evenly gap-x-2 overflow-visible sm:gap-x-6 md:gap-x-10 lg:gap-x-14">
@@ -81,8 +83,12 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="border-t border-white/15 bg-black/35 p-4 text-center text-white backdrop-blur-sm">
-        <p>© 2026 Soulspedia</p>
+      <footer className="bg-transparent px-6 pb-5 pt-2 text-right text-white md:px-10">
+        <p
+          className={`m-0 inline-block text-xs font-semibold leading-none text-white/90 drop-shadow-[0_0_10px_rgba(255,255,255,0.28)] md:text-sm ${heroTracking}`}
+        >
+          © 2026 Soulspedia
+        </p>
       </footer>
       </div>
     </div>
