@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Soulspedia",
-  description: "Lore y contexto del universo Souls",
+  description: "Lore and context from the Souls universe",
 };
 
 export default function RootLayout({
@@ -12,9 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="en">
       <body className="antialiased bg-black text-white min-h-screen">
-        {children}
+        <div className="flex min-h-screen flex-col bg-black text-white">
+          <SiteHeader />
+          <main className="relative z-10 flex min-h-0 flex-1 flex-col">{children}</main>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );
