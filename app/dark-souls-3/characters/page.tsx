@@ -81,7 +81,7 @@ function LoreCard({ item }: { item: LoreCardConfig }) {
 
 export default function DarkSouls3CharactersPage() {
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-black">
+    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="relative z-10 flex w-full flex-1 flex-col items-center overflow-x-visible px-4 pb-12 pt-6 md:px-8 md:pb-16 md:pt-8">
         <div className="mb-8 flex w-full max-w-6xl justify-start lg:max-w-7xl">
           <Link

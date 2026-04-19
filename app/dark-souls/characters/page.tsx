@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Characters — Dark Souls | Soulspedia",
   description:
-    "Lords and figures from Dark Souls: the Witch of Izalith, Nito, Gwyn, and the Furtive Pygmy.",
+    "Lords and figures from Dark Souls: the Witch of Izalith, Gravelord Nito, Gwyn, and the Furtive Pygmy.",
 };
 
 const heroTracking =
@@ -32,11 +32,13 @@ const loreCards: LoreCardConfig[] = [
     id: "witch-of-izalith",
     title: "THE WITCH OF IZALITH",
     labelPosition: "center",
+    imageSrc: "/the_witch_of_izalith_art.jpg",
   },
   {
     id: "nito",
-    title: "NITO",
+    title: "GRAVELORD NITO",
     labelPosition: "center",
+    imageSrc: "/gravelordnito.jpg",
   },
   {
     id: "gwyn",
@@ -94,7 +96,7 @@ function LoreCard({ item }: { item: LoreCardConfig }) {
 
 export default function DarkSoulsCharactersPage() {
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-black">
+    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="relative z-10 flex w-full flex-1 flex-col items-center overflow-x-visible px-4 pb-12 pt-6 md:px-8 md:pb-16 md:pt-8">
         <div className="mb-8 flex w-full max-w-6xl justify-start lg:max-w-7xl">
           <Link

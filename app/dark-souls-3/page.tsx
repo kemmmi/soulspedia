@@ -18,11 +18,11 @@ const navButtonClassName =
 
 export default function DarkSouls3Page() {
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-black">
+    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="relative z-10 flex w-full flex-1 flex-col items-center overflow-x-visible px-4 pb-12 pt-6 md:px-8 md:pb-16 md:pt-8">
         <header className="mb-10 flex w-full max-w-5xl flex-col items-center text-center md:mb-12 lg:max-w-6xl">
           <h1
-            className={`text-5xl font-semibold leading-none text-white drop-shadow-[0_0_32px_rgba(255,255,255,0.55)] sm:text-6xl md:text-7xl lg:text-8xl lg:drop-shadow-[0_0_40px_rgba(255,255,255,0.5)] ${gamePageTitleTracking}`}
+            className={`text-5xl font-semibold leading-none text-white sm:text-6xl md:text-7xl lg:text-8xl ${gamePageTitleTracking}`}
           >
             DARK SOULS III
           </h1>
@@ -33,15 +33,31 @@ export default function DarkSouls3Page() {
           </p>
         </header>
 
+        <nav
+          className="mb-10 flex w-full max-w-2xl flex-col items-center justify-center gap-5 sm:mb-12 sm:flex-row sm:gap-8 md:mb-14"
+          aria-label="Dark Souls III sections"
+        >
+          <div className="rounded-md bg-gradient-to-br from-white via-white/50 to-white/85 p-px shadow-[0_0_16px_rgba(255,255,255,0.12)] transition hover:from-white hover:via-white/70 hover:to-white">
+            <Link href="/dark-souls-3/characters" className={navButtonClassName}>
+              CHARACTERS
+            </Link>
+          </div>
+          <div className="rounded-md bg-gradient-to-br from-white via-white/50 to-white/85 p-px shadow-[0_0_16px_rgba(255,255,255,0.12)] transition hover:from-white hover:via-white/70 hover:to-white">
+            <Link href="/dark-souls-3/forum" className={navButtonClassName}>
+              FORUM
+            </Link>
+          </div>
+        </nav>
+
         <section
-          className="mb-12 w-full max-w-3xl text-pretty md:mb-14 lg:max-w-4xl"
+          className="w-full max-w-3xl text-pretty lg:max-w-4xl"
           aria-labelledby="ds3-general-lore"
         >
           <h2 id="ds3-general-lore" className="sr-only">
             General story
           </h2>
           <div
-            className={`space-y-5 text-center text-[clamp(0.8rem,2vw,1.0625rem)] font-semibold leading-relaxed text-white/88 sm:space-y-6 sm:text-base md:text-lg ${heroTracking}`}
+            className={`space-y-5 text-center lowercase text-[clamp(0.8rem,2vw,1.0625rem)] font-semibold leading-relaxed text-white/88 sm:space-y-6 sm:text-base md:text-lg ${heroTracking}`}
           >
             <p>
               The First Flame gutters; embers alone prove that fire ever lived.
@@ -58,22 +74,6 @@ export default function DarkSouls3Page() {
             </p>
           </div>
         </section>
-
-        <nav
-          className="flex w-full max-w-2xl flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8"
-          aria-label="Dark Souls III sections"
-        >
-          <div className="rounded-md bg-gradient-to-br from-white via-white/50 to-white/85 p-px shadow-[0_0_16px_rgba(255,255,255,0.12)] transition hover:from-white hover:via-white/70 hover:to-white">
-            <Link href="/dark-souls-3/characters" className={navButtonClassName}>
-              CHARACTERS
-            </Link>
-          </div>
-          <div className="rounded-md bg-gradient-to-br from-white via-white/50 to-white/85 p-px shadow-[0_0_16px_rgba(255,255,255,0.12)] transition hover:from-white hover:via-white/70 hover:to-white">
-            <Link href="/dark-souls-3/forum" className={navButtonClassName}>
-              FORUM
-            </Link>
-          </div>
-        </nav>
       </div>
     </div>
   );

@@ -6,14 +6,14 @@ export function SiteHeader() {
     <header className="relative z-[30] flex shrink-0 items-center justify-between px-6 py-5 md:px-10">
       <Link
         href="/"
-        className="flex items-center opacity-90 transition-opacity hover:opacity-100"
+        className="group flex items-center opacity-90 transition-opacity hover:opacity-100"
       >
         <Image
-          src="/logo.png"
+          src="/logosinfondo.png"
           alt="Soulspedia"
           width={96}
           height={96}
-          className="h-14 w-14 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
+          className="h-14 w-14 object-contain transition-[filter] duration-200 sm:h-16 sm:w-16 md:h-20 md:w-20 [filter:drop-shadow(0_0_14px_rgba(255,255,255,0.42))_drop-shadow(0_0_26px_rgba(255,255,255,0.14))] group-hover:[filter:drop-shadow(0_0_12px_rgba(252,211,77,0.65))_drop-shadow(0_0_26px_rgba(251,146,60,0.45))_drop-shadow(0_0_40px_rgba(234,88,12,0.25))]"
           priority
         />
       </Link>
