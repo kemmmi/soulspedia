@@ -11,15 +11,16 @@ const gameTitleClassName =
 export default function Home() {
   return (
     <div className="relative flex min-h-screen flex-col overflow-hidden bg-black text-white">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover"
-      >
-        <source src="/fondoinicio.mp4" type="video/mp4" />
-      </video>
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/inicio.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
       <div className="absolute inset-0 z-[1] bg-black/55" aria-hidden />
 
       <div className="relative z-10 flex min-h-screen flex-col">
