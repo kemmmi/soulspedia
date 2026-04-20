@@ -9,7 +9,7 @@ export default function DarkSoulsLayout({
     <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="pointer-events-none fixed inset-0 z-0">
         <Image
-          src="/darksoulsfondo2.jpg"
+          src="/darksoulsfondo3.jpg"
           alt=""
           fill
           priority
