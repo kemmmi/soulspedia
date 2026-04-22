@@ -68,7 +68,7 @@ export default function DarkSouls3Page() {
               General story
             </h2>
             <div
-              className={`space-y-5 text-center lowercase text-[clamp(0.8rem,2vw,1.0625rem)] font-semibold leading-relaxed text-white/88 sm:space-y-6 sm:text-base md:text-lg ${heroTracking}`}
+            className={`font-lore space-y-5 text-center lowercase text-[clamp(0.8rem,2vw,1.0625rem)] font-normal leading-relaxed text-white/88 sm:space-y-6 sm:text-base md:text-lg ${heroTracking}`}
             >
               <p>
                 The First Flame gutters; embers alone prove that fire ever lived.

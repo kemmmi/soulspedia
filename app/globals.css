@@ -43,6 +43,12 @@ body {
   font-synthesis: none;
 }
 
+.font-lore {
+  font-family: var(--font-lore), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-synthesis: none;
+}
+
 /* Quitar flechas de inputs numéricos (Chrome, Safari, Edge) */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
