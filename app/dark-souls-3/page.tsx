@@ -31,7 +31,7 @@ export default function DarkSouls3Page() {
               DARK SOULS III
             </h1>
             <p
-              className={`mt-7 max-w-3xl text-balance px-2 text-[clamp(0.5rem,2.1vw,1.35rem)] font-semibold leading-snug text-white sm:max-w-4xl sm:mt-8 sm:text-[clamp(0.55rem,2.2vw,1.5rem)] md:max-w-5xl lg:text-2xl xl:text-3xl ${heroTracking} [text-shadow:0_0_10px_rgba(120,66,20,0.75),0_0_24px_rgba(160,82,25,0.55),0_0_44px_rgba(90,45,10,0.35)]`}
+              className={`mt-7 max-w-none whitespace-nowrap px-2 text-[clamp(0.5rem,2.1vw,1.35rem)] font-semibold leading-snug text-white sm:mt-8 sm:text-[clamp(0.55rem,2.2vw,1.5rem)] lg:text-2xl xl:text-3xl ${heroTracking} [text-shadow:0_0_10px_rgba(120,66,20,0.75),0_0_24px_rgba(160,82,25,0.55),0_0_44px_rgba(90,45,10,0.35)]`}
             >
               ASHEN ONE — SEEK WHAT THE DYING FLAME STILL REMEMBERS
             </p>
@@ -54,7 +54,7 @@ export default function DarkSouls3Page() {
             className={`relative mt-20 inline-flex items-center justify-center bg-transparent text-[clamp(0.95rem,2vw,1.25rem)] font-semibold leading-none ${heroTracking} text-amber-200/75 no-underline outline-none ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25 [text-shadow:0_0_10px_rgba(70,38,10,0.7),0_0_22px_rgba(110,55,14,0.5)] after:absolute after:-bottom-2 after:left-1/2 after:h-px after:w-[min(34rem,92vw)] after:-translate-x-1/2 after:bg-gradient-to-r after:from-amber-200/0 after:via-amber-200/55 after:to-amber-200/0 after:opacity-90 after:blur-[0.2px]`}
             aria-label="Empezar a leer el lore"
           >
-            UNRAVEL THE FIRST FLAME’S AGE — BEGIN READING
+            WITNESS THE AGE BUILT ON COLD CINDERS — BEGIN READING
           </a>
         </section>
 
