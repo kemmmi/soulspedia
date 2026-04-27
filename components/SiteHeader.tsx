@@ -1,7 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/login";
+
   return (
     <header className="relative z-[30] flex shrink-0 items-center justify-between px-6 py-5 md:px-10">
       <Link
@@ -17,14 +23,18 @@ export function SiteHeader() {
           priority
         />
       </Link>
-      <div className="rounded-md bg-gradient-to-br from-white via-white/50 to-white/85 p-px shadow-[0_0_16px_rgba(255,255,255,0.12)] transition hover:from-white hover:via-white/70 hover:to-white">
-        <Link
-          href="/login"
-          className="block rounded-[5px] bg-black px-8 py-2.5 text-xs font-semibold tracking-widest text-amber-100 transition hover:text-amber-50 md:text-sm"
-        >
-          LOGIN
-        </Link>
-      </div>
+      {!isLoginPage ? (
+        <div className="rounded-md border border-slate-200/35 bg-slate-900/20 p-px shadow-[0_0_18px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition hover:border-slate-100/50">
+          <Link
+            href="/login"
+            className="block rounded-[5px] bg-transparent px-8 py-2.5 text-xs font-semibold tracking-widest text-slate-100 transition hover:text-white md:text-sm"
+          >
+            LOGIN
+          </Link>
+        </div>
+      ) : (
+        <div />
+      )}
     </header>
   );
 }

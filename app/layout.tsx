@@ -24,9 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${loreFont.variable} antialiased bg-black text-white min-h-screen`}
+        className={`${loreFont.variable} antialiased text-white min-h-screen`}
       >
-        <div className="flex min-h-screen flex-col bg-black text-white">
+        <div className="flex min-h-screen flex-col text-white">
           <SiteHeader />
           <main className="relative z-10 flex min-h-0 flex-1 flex-col">{children}</main>
           <SiteFooter />
