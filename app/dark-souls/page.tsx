@@ -24,7 +24,7 @@ export default function DarkSoulsPage() {
     >
       <section
         id="ds1-general-lore"
-        className="flex w-full justify-center scroll-mt-28 px-4 pb-14 md:px-8 md:pb-20"
+        className="flex w-full justify-center px-4 pb-14 pt-28 md:px-8 md:pb-20 md:pt-32"
         aria-labelledby="ds1-general-lore-title"
       >
         <Reveal className="w-full max-w-3xl text-pretty lg:max-w-4xl">

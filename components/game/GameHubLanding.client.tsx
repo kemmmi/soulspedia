@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { fsMotion } from "@/lib/motion/fromSoftware";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { animate, motion, useReducedMotion } from "framer-motion";
 import { useCallback } from "react";
 
 const heroTracking =
@@ -45,22 +45,34 @@ export function GameHubLanding(props: GameHubLandingProps) {
   const ease = fsMotion.ease;
   const prefersReducedMotion = useReducedMotion();
 
+  /**
+   * Scroll programático al top exacto del lore con easing tipo «ease-out expo»
+   * (entrada ágil, deceleración cinematográfica). Cancelable: si el usuario
+   * gira la rueda, toca o pulsa una tecla durante la animación, se aborta y
+   * se respeta su intención.
+   */
   const scrollToLore = useCallback(() => {
     const el = document.getElementById(loreSectionId);
     if (!el) return;
 
-    const scrollMt = Number.parseFloat(
-      window.getComputedStyle(el).scrollMarginTop,
-    );
-    const top =
-      el.getBoundingClientRect().top +
-      window.scrollY -
-      (Number.isFinite(scrollMt) ? scrollMt : 0);
+    const target = Math.max(0, el.getBoundingClientRect().top + window.scrollY);
 
-    window.scrollTo({
-      top: Math.max(0, top),
-      behavior: prefersReducedMotion ? "auto" : "smooth",
+    if (prefersReducedMotion) {
+      window.scrollTo(0, target);
+      return;
+    }
+
+    const controls = animate(window.scrollY, target, {
+      duration: 1.5,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (value) => window.scrollTo(0, value),
     });
+
+    const cancel = () => controls.stop();
+    const opts: AddEventListenerOptions = { passive: true, once: true };
+    window.addEventListener("wheel", cancel, opts);
+    window.addEventListener("touchstart", cancel, opts);
+    window.addEventListener("keydown", cancel, { once: true });
   }, [loreSectionId, prefersReducedMotion]);
 
   return (
@@ -129,7 +141,9 @@ export function GameHubLanding(props: GameHubLandingProps) {
         aria-hidden
       />
 
-      <div className="relative z-[34]">{children}</div>
+      {/* Fondo opaco solo bajo el lore para tapar la imagen fixed del layout
+         (sin afectar al hero ni a las subrutas characters/forum). */}
+      <div className="relative z-[34] bg-black">{children}</div>
     </div>
   );
 }
