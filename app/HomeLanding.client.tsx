@@ -50,39 +50,6 @@ const mediaSets = {
   ],
 } as const;
 
-const reviews = [
-  {
-    score: "9/10",
-    quote: "A quiet atlas for a series that hides its truth in item text.",
-    outlet: "Editorial · Soulspedia",
-  },
-  {
-    score: "—",
-    quote: "Reads like a journal kept by someone who refuses to go hollow.",
-    outlet: "Reader digest",
-  },
-  {
-    score: "★★★★½",
-    quote: "Clear without flattening the lore; sober without losing wonder.",
-    outlet: "Catalog",
-  },
-  {
-    score: "A",
-    quote: "Three kingdoms, one fire, and a guide that respects the silence.",
-    outlet: "Press picks",
-  },
-  {
-    score: "92%",
-    quote: "It treats Lordran, Drangleic and Lothric as one long farewell.",
-    outlet: "Retrospective",
-  },
-  {
-    score: "★★★★½",
-    quote: "Wikis throw data at you. Soulspedia hands you a candle.",
-    outlet: "Feature",
-  },
-] as const;
-
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
@@ -97,30 +64,10 @@ function SectionTitle({
   return (
     <h2
       id={id}
-      className="font-lore text-center text-[clamp(2rem,5.5vw,3.25rem)] font-normal italic uppercase tracking-[0.06em] text-white/95 [text-shadow:0_0_18px_rgba(0,0,0,0.85),0_0_44px_rgba(80,40,10,0.32)]"
+      className="font-optimus text-center text-[clamp(2rem,5.5vw,3.25rem)] font-normal uppercase tracking-[0.06em] text-white/95 [text-shadow:0_0_18px_rgba(0,0,0,0.85),0_0_44px_rgba(80,40,10,0.32)]"
     >
       {children}
     </h2>
-  );
-}
-
-function EclipsePlate() {
-  return (
-    <div
-      className="relative mx-auto aspect-square w-full max-w-[min(100%,22rem)] md:max-w-none"
-      aria-hidden
-    >
-      <div
-        className="absolute inset-[-6%] rounded-full opacity-95 blur-2xl"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 48%, rgba(255,90,40,0.22) 0%, rgba(120,40,10,0.18) 38%, transparent 64%)",
-        }}
-      />
-      <div className="absolute inset-[8%] rounded-full bg-black shadow-[inset_0_0_60px_rgba(0,0,0,1),0_0_60px_rgba(255,80,38,0.18)] ring-1 ring-amber-500/30" />
-      <div className="absolute inset-[24%] rounded-full border-[3px] border-amber-400/70 shadow-[0_0_42px_rgba(255,100,40,0.22),inset_0_0_50px_rgba(0,0,0,0.95)]" />
-      <div className="absolute bottom-[10%] left-1/2 h-[44%] w-px -translate-x-1/2 bg-gradient-to-b from-amber-300/85 via-orange-900/55 to-transparent" />
-    </div>
   );
 }
 
@@ -226,63 +173,6 @@ export function HomeLanding() {
 
   return (
     <div className="relative w-full text-white">
-      {/* SVG filters utilizados por las clases .font-eroded-* (no visible) */}
-      <svg
-        aria-hidden
-        focusable="false"
-        width="0"
-        height="0"
-        className="pointer-events-none absolute"
-        style={{ position: "absolute", overflow: "hidden" }}
-      >
-        <defs>
-          <filter
-            id="hero-erode-mask"
-            x="-5%"
-            y="-5%"
-            width="110%"
-            height="110%"
-          >
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.55"
-              numOctaves="2"
-              seed="9"
-              result="noise"
-            />
-            <feColorMatrix
-              in="noise"
-              type="matrix"
-              values="0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 -1 1.35"
-              result="alphaMask"
-            />
-            <feComposite
-              in="SourceGraphic"
-              in2="alphaMask"
-              operator="in"
-              result="masked"
-            />
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.95"
-              numOctaves="1"
-              seed="2"
-              result="grain"
-            />
-            <feDisplacementMap
-              in="masked"
-              in2="grain"
-              scale="2"
-              xChannelSelector="R"
-              yChannelSelector="G"
-            />
-          </filter>
-        </defs>
-      </svg>
-
       {/* ----------- HERO ----------- */}
       <section
         aria-labelledby="home-hero-title"
@@ -332,9 +222,9 @@ export function HomeLanding() {
         />
 
         <div className="relative z-[10] mx-auto flex w-full max-w-7xl flex-1 items-center justify-center px-6 pt-28 pb-24 md:justify-end md:px-12 md:pt-36">
-          <div className="flex max-w-2xl flex-col items-center text-center md:items-end md:text-right">
+          <div className="flex max-w-3xl flex-col items-center text-center md:items-end md:text-right">
             <motion.p
-              className="font-lore text-[clamp(0.75rem,1.6vw,1rem)] italic uppercase tracking-[0.42em] text-white/85"
+              className="font-optimus text-[clamp(0.95rem,2.1vw,1.35rem)] uppercase tracking-[0.32em] text-white/85"
               initial={reduce ? false : { opacity: 0 }}
               animate={reduce ? false : { opacity: 1 }}
               transition={{
@@ -343,12 +233,12 @@ export function HomeLanding() {
                 ease,
               }}
             >
-              EMBRACE THE DARKNESS
+              The Flame of Understanding
             </motion.p>
 
             <motion.h1
               id="home-hero-title"
-              className="font-eroded-mask mt-4 text-[clamp(2.6rem,10vw,6rem)] uppercase leading-[0.96] tracking-[0.04em]"
+              className="font-optimus mt-4 text-[clamp(2.2rem,8.2vw,5.25rem)] uppercase leading-[0.98] tracking-[0.035em] text-white [text-shadow:0_0_14px_rgba(0,0,0,0.82),0_0_42px_rgba(75,42,12,0.38),0_0_88px_rgba(42,22,8,0.22)]"
               initial={reduce ? false : { opacity: 0 }}
               animate={reduce ? false : { opacity: 1 }}
               transition={{
@@ -357,7 +247,7 @@ export function HomeLanding() {
                 ease,
               }}
             >
-              KEEP THE FLAME LIT
+              So You Never Go Hollow
             </motion.h1>
 
             <motion.div
@@ -375,9 +265,9 @@ export function HomeLanding() {
                 <Link
                   key={g.href}
                   href={g.href}
-                  className={`font-lore text-[0.78rem] font-semibold uppercase tracking-[0.32em] text-white/70 transition-colors duration-200 hover:text-white ${i > 0 ? "border-l border-white/20 pl-7" : ""}`}
+                  className={`font-optimus text-[0.95rem] uppercase tracking-[0.18em] text-white/70 transition-colors duration-200 hover:text-white md:text-base ${i > 0 ? "border-l border-white/20 pl-7" : ""}`}
                 >
-                  {g.label === "DARK SOULS" ? "I" : g.label === "DARK SOULS II" ? "II" : "III"}
+                  {g.label}
                 </Link>
               ))}
             </motion.div>
@@ -389,14 +279,42 @@ export function HomeLanding() {
       <section
         id="story"
         aria-labelledby="home-story-title"
-        className="relative scroll-mt-28 px-5 py-24 md:px-10 md:py-32"
+        className="relative scroll-mt-28 overflow-hidden px-5 py-24 md:px-10 md:py-32"
       >
-        <Reveal className="mx-auto max-w-6xl">
-          <SectionTitle id="home-story-title">The Story</SectionTitle>
+        {/* Fondo atmosférico de la sección + empalmes con bloques contiguos */}
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+          <Image
+            src="/darksoulsfondo7.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-black/88" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black via-black/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
+        </div>
 
-          <div className="mt-16 grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-20">
-            <div className="relative overflow-hidden rounded-sm border border-white/[0.07] bg-black/55 p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_24px_64px_rgba(0,0,0,0.5)] backdrop-blur-[2px] md:p-10">
-              <div className="font-lore space-y-6 text-[1rem] leading-[1.85] text-white/82 md:text-[1.05rem]">
+        <Reveal className="mx-auto max-w-6xl">
+          <article className="relative overflow-hidden rounded-sm border border-white/10 shadow-[0_24px_64px_rgba(0,0,0,0.55)]">
+            <Image
+              src="/darksouls3fondo.jpg"
+              alt=""
+              fill
+              priority={false}
+              sizes="(max-width:1024px) 100vw, 64rem"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-black/65" aria-hidden />
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent"
+              aria-hidden
+            />
+
+            <div className="relative px-6 py-14 md:px-12 md:py-20">
+              <SectionTitle id="home-story-title">The Story</SectionTitle>
+
+              <div className="mt-8 max-w-2xl space-y-6 font-lore text-[clamp(0.9rem,2vw,1.0625rem)] font-normal leading-[1.85] text-white/88 md:text-[1.05rem]">
                 <p>
                   Soulspedia is a quiet atlas for the Souls series — a place
                   where lore, characters and weapons stand under the same sky,
@@ -416,8 +334,7 @@ export function HomeLanding() {
                 </p>
               </div>
             </div>
-            <EclipsePlate />
-          </div>
+          </article>
         </Reveal>
       </section>
 
@@ -425,84 +342,139 @@ export function HomeLanding() {
       <section
         id="world"
         aria-labelledby="home-world-title"
-        className="relative scroll-mt-28 px-5 py-24 md:px-10 md:py-32"
+        className="relative scroll-mt-28 overflow-hidden px-5 py-24 md:px-10 md:py-32"
       >
+        {/* Fondo atmosférico (bosque/Drangleic) + empalmes */}
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+          <Image
+            src="/darksouls2fondo3.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-black/82" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black via-black/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
+        </div>
+
         <Reveal className="mx-auto max-w-6xl">
           <SectionTitle id="home-world-title">The World</SectionTitle>
 
-          <div className="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-5">
+          {/*
+           * Composición tipo «Mondrian» (mobile: stack DS → DS II → DS III).
+           * Desktop (≥lg): rejilla 12×3 con posiciones explícitas:
+           *   - DS  imagen vertical: col 1-5,  row 1-3 (toda la altura).
+           *   - DS  texto:           col 7-9,  row 1.
+           *   - DS3 imagen:          col 10-12,row 1.
+           *   - DS2 texto:           col 7-9,  row 2.
+           *   - DS3 texto:           col 10-12,row 2.
+           *   - DS2 imagen ancha:    col 7-12, row 3.
+           */}
+          <div className="mt-16 flex flex-col gap-14 lg:grid lg:grid-cols-12 lg:grid-rows-[auto_auto_auto] lg:gap-x-8 lg:gap-y-12">
+            {/* DS — imagen vertical (izquierda, full height) */}
+            <Link
+              href={games[0].href}
+              aria-label={`Visit ${games[0].label}`}
+              className="group relative block aspect-[3/4] overflow-hidden rounded-sm border border-white/[0.08] shadow-[0_24px_64px_rgba(0,0,0,0.5)] lg:col-span-5 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:aspect-auto"
+            >
+              <Image
+                src={games[0].image}
+                alt={games[0].label}
+                fill
+                sizes="(max-width:1024px) 100vw, 40vw"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <span
+                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/40"
+                aria-hidden
+              />
+            </Link>
+
+            {/* DS — texto (arriba centro) */}
+            <div className="lg:col-span-3 lg:col-start-7 lg:row-start-1">
+              <h3 className="font-optimus text-[1.35rem] font-normal uppercase tracking-[0.06em] text-white/95 md:text-2xl">
+                {games[0].label}
+              </h3>
+              <p className="mt-4 font-lore text-[0.95rem] leading-relaxed text-white/72 md:text-base">
+                {games[0].blurb}
+              </p>
               <Link
                 href={games[0].href}
-                className="group relative block aspect-[3/4] overflow-hidden rounded-sm border border-white/[0.07] shadow-[0_24px_64px_rgba(0,0,0,0.55)] lg:sticky lg:top-28"
+                className="mt-5 inline-block font-lore text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-amber-200/85 underline-offset-4 transition-colors duration-200 hover:text-amber-100 hover:underline"
               >
-                <Image
-                  src="/gwyn.jpg"
-                  alt="Lord of Sunlight, Gwyn"
-                  fill
-                  sizes="(max-width:1024px) 100vw, 38vw"
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-                />
-                <span
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/35"
-                  aria-hidden
-                />
-                <span className="absolute bottom-6 left-6 right-6">
-                  <span className="font-lore text-[0.65rem] uppercase tracking-[0.32em] text-amber-200/80">
-                    Begin here
-                  </span>
-                  <span className="mt-2 block font-lore text-2xl font-normal uppercase tracking-[0.05em] text-white/95">
-                    Where it all started
-                  </span>
-                </span>
+                Read its lore →
               </Link>
             </div>
 
-            <div className="flex flex-col gap-12 lg:col-span-7">
-              {games.map((g, idx) => (
-                <article
-                  key={g.href}
-                  className={
-                    idx % 2 === 0
-                      ? "lg:-translate-x-2"
-                      : "lg:translate-x-6"
-                  }
-                >
-                  <div className="grid items-start gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] sm:gap-8">
-                    <div className="min-w-0">
-                      <h3 className="font-lore text-[1.35rem] font-normal uppercase tracking-[0.06em] text-white/95 md:text-2xl">
-                        {g.label}
-                      </h3>
-                      <p className="mt-4 font-lore text-[0.95rem] leading-relaxed text-white/72 md:text-base">
-                        {g.blurb}
-                      </p>
-                      <Link
-                        href={g.href}
-                        className="mt-5 inline-block font-lore text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-amber-200/85 underline-offset-4 transition-colors duration-200 hover:text-amber-100 hover:underline"
-                      >
-                        Read its lore →
-                      </Link>
-                    </div>
-                    <Link
-                      href={g.href}
-                      className="group relative aspect-[16/11] overflow-hidden rounded-sm border border-white/[0.08]"
-                      aria-label={`Visit ${g.label}`}
-                    >
-                      <Image
-                        src={g.image}
-                        alt={g.label}
-                        fill
-                        sizes="(max-width:640px) 100vw, 36vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                      />
-                      <span
-                        className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/40"
-                        aria-hidden
-                      />
-                    </Link>
-                  </div>
-                </article>
-              ))}
+            {/* DS II — texto (medio centro) */}
+            <div className="lg:col-span-3 lg:col-start-7 lg:row-start-2">
+              <h3 className="font-optimus text-[1.35rem] font-normal uppercase tracking-[0.06em] text-white/95 md:text-2xl">
+                {games[1].label}
+              </h3>
+              <p className="mt-4 font-lore text-[0.95rem] leading-relaxed text-white/72 md:text-base">
+                {games[1].blurb}
+              </p>
+              <Link
+                href={games[1].href}
+                className="mt-5 inline-block font-lore text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-amber-200/85 underline-offset-4 transition-colors duration-200 hover:text-amber-100 hover:underline"
+              >
+                Read its lore →
+              </Link>
+            </div>
+
+            {/* DS II — imagen ancha (abajo, ocupa toda la columna derecha) */}
+            <Link
+              href={games[1].href}
+              aria-label={`Visit ${games[1].label}`}
+              className="group relative block aspect-[16/10] overflow-hidden rounded-sm border border-white/[0.08] shadow-[0_24px_64px_rgba(0,0,0,0.5)] lg:col-span-6 lg:col-start-7 lg:row-start-3 lg:aspect-[16/9]"
+            >
+              <Image
+                src={games[1].image}
+                alt={games[1].label}
+                fill
+                sizes="(max-width:1024px) 100vw, 50vw"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <span
+                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/40"
+                aria-hidden
+              />
+            </Link>
+
+            {/* DS III — imagen (arriba derecha) */}
+            <Link
+              href={games[2].href}
+              aria-label={`Visit ${games[2].label}`}
+              className="group relative block aspect-[16/11] overflow-hidden rounded-sm border border-white/[0.08] shadow-[0_24px_64px_rgba(0,0,0,0.5)] lg:col-span-3 lg:col-start-10 lg:row-start-1"
+            >
+              <Image
+                src={games[2].image}
+                alt={games[2].label}
+                fill
+                sizes="(max-width:1024px) 100vw, 25vw"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <span
+                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/40"
+                aria-hidden
+              />
+            </Link>
+
+            {/* DS III — texto (medio derecha) */}
+            <div className="lg:col-span-3 lg:col-start-10 lg:row-start-2">
+              <h3 className="font-optimus text-[1.35rem] font-normal uppercase tracking-[0.06em] text-white/95 md:text-2xl">
+                {games[2].label}
+              </h3>
+              <p className="mt-4 font-lore text-[0.95rem] leading-relaxed text-white/72 md:text-base">
+                {games[2].blurb}
+              </p>
+              <Link
+                href={games[2].href}
+                className="mt-5 inline-block font-lore text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-amber-200/85 underline-offset-4 transition-colors duration-200 hover:text-amber-100 hover:underline"
+              >
+                Read its lore →
+              </Link>
             </div>
           </div>
         </Reveal>
@@ -512,8 +484,22 @@ export function HomeLanding() {
       <section
         id="media"
         aria-labelledby="home-media-title"
-        className="relative scroll-mt-28 px-5 py-24 md:px-10 md:py-32"
+        className="relative scroll-mt-28 overflow-hidden px-5 py-24 md:px-10 md:py-32"
       >
+        {/* Fondo atmosférico oscuro (más sombrío que las anteriores) + empalmes */}
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+          <Image
+            src="/darksoulsfondo6.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-black/86" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black via-black/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
+        </div>
+
         <Reveal className="mx-auto max-w-6xl">
           <SectionTitle id="home-media-title">Media</SectionTitle>
 
@@ -544,39 +530,12 @@ export function HomeLanding() {
         </Reveal>
       </section>
 
-      {/* ----------- REVIEWS ----------- */}
-      <section
-        id="reviews"
-        aria-labelledby="home-reviews-title"
-        className="relative scroll-mt-28 px-5 py-24 md:px-10 md:py-32"
-      >
-        <Reveal className="mx-auto max-w-6xl">
-          <SectionTitle id="home-reviews-title">Reviews</SectionTitle>
-
-          <div className="mt-16 grid gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-            {reviews.map((r, idx) => (
-              <article key={`${idx}-${r.outlet}`} className="text-center">
-                <p className="font-lore text-[2.4rem] font-normal leading-none text-white/95 md:text-[2.6rem]">
-                  {r.score}
-                </p>
-                <p className="mx-auto mt-5 max-w-[28ch] font-lore text-[0.95rem] italic leading-relaxed text-white/72">
-                  &ldquo;{r.quote}&rdquo;
-                </p>
-                <p className="mt-6 font-lore text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-amber-200/82">
-                  {r.outlet}
-                </p>
-              </article>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
       {/* ----------- FOOTER PROPIO DE LA HOME ----------- */}
       <footer className="relative border-t border-white/[0.07] px-6 py-16 text-center md:px-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-10">
           <Link
             href="/"
-            className="font-lore text-2xl font-normal uppercase tracking-[0.32em] text-white/95 transition-colors hover:text-amber-100/95 md:text-3xl"
+            className="font-optimus text-2xl font-normal uppercase tracking-[0.32em] text-white/95 transition-colors hover:text-amber-100/95 md:text-3xl"
           >
             SOULSPEDIA
           </Link>

@@ -49,29 +49,10 @@ body {
   font-synthesis: none;
 }
 
-/* ----------- Titular del hero: erosión + degradado dorado ----------- */
-.font-eroded-mask {
+.font-optimus {
   font-family: "OptimusPrinceps", Georgia, "Times New Roman", serif;
-  /* Degradado tipo logos Dark Souls: crema → oro → marrón profundo */
-  background-image: linear-gradient(
-    180deg,
-    #f7e7c2 0%,
-    #ead091 22%,
-    #c89f5b 48%,
-    #7d5c2c 78%,
-    #3b2a14 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  /* Línea cremosa cruzando cada renglón del titular (todas las palabras) */
-  text-decoration-line: line-through;
-  text-decoration-color: rgba(255, 235, 200, 0.85);
-  text-decoration-thickness: 2px;
-  text-decoration-skip-ink: none;
-  filter: url("#hero-erode-mask")
-    drop-shadow(0 2px 12px rgba(0, 0, 0, 0.65))
-    drop-shadow(0 0 56px rgba(80, 40, 10, 0.3));
+  font-style: normal;
+  font-synthesis: none;
 }
 
 /* Quitar flechas de inputs numéricos (Chrome, Safari, Edge) */
