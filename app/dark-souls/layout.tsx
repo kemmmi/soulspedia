@@ -1,29 +1,4 @@
-import Image from "next/image";
-
-export default function DarkSoulsLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <Image
-          src="/darksoulsfondo3.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      </div>
-      <div
-        className="pointer-events-none fixed inset-0 z-[1] bg-black/55"
-        aria-hidden
-      />
-      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-        {children}
-      </div>
-    </div>
-  );
+// app/dark-souls/layout.tsx
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }
