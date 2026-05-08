@@ -72,7 +72,7 @@ export function SiteHeader() {
         </defs>
       </svg>
 
-      <div className="relative mx-auto flex w-full max-w-[min(112rem,100%)] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-5 pb-3 pt-7 sm:px-7 md:flex-nowrap md:px-12 md:pb-3.5 md:pt-8">
+      <div className="page-shell relative flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3 pb-3 pt-7 md:flex-nowrap md:pb-3.5 md:pt-8">
         <motion.div
           className="flex min-w-0 flex-1 items-center md:flex-initial md:justify-start"
           initial={

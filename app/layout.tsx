@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Cormorant_Garamond, EB_Garamond } from "next/font/google"; // <--- Añadimos EB_Garamond aquí
 import { AppMotionConfig } from "@/components/AppMotionConfig";
@@ -24,6 +24,13 @@ export const metadata: Metadata = {
   description: "Lore and context from the Souls universe",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  /* Encaja con safe areas (notch / home indicator) si usas fondos a pantalla completa */
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,10 +42,10 @@ export default function RootLayout({
           Next.js ya lo hace automáticamente con las funciones de arriba. 
       */}
       <body
-        className={`${loreFont.variable} ${dsInventoryFont.variable} antialiased text-white min-h-screen`} // <--- Añadimos la variable aquí
+        className={`${loreFont.variable} ${dsInventoryFont.variable} antialiased text-white min-h-dvh`}
       >
         <AppMotionConfig>
-          <div className="flex min-h-screen flex-col text-white">
+          <div className="flex min-h-dvh flex-col text-white">
             <SiteHeader />
             <main className="relative z-10 flex min-h-0 flex-1 flex-col">
               {children}

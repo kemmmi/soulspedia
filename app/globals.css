@@ -21,7 +21,22 @@
   --background: #000000;
   --foreground: #ffffff;
   /* Vinculamos la variable de Next.js con CSS */
-  --font-ds-inventory: var(--font-ds-inventory); 
+  --font-ds-inventory: var(--font-ds-inventory);
+  /**
+   * Marco de página: misma columna y mismos márgenes laterales en cualquier resolución
+   * (proporción estable; el zoom del navegador sigue afectando tamaño físico en mm).
+   */
+  --page-max-width: 80rem; /* equiv. Tailwind max-w-7xl */
+  --page-margin-x: clamp(1.125rem, 2.65vw + 0.35rem, 3rem);
+}
+
+/* Contenedor centrado: ancho máximo compartido + sangría horizontal unificada */
+.page-shell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-margin-x);
 }
 
 @theme inline {

@@ -58,7 +58,7 @@ export function HomeLanding() {
         />
 
         {/* padding-top amplio para encajar un navbar futuro (hero + Chronicles bajan juntos) */}
-        <div className="relative z-[10] mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pb-16 pt-24 md:px-12 md:pb-20 md:pt-32 lg:pt-36 xl:pt-40">
+        <div className="page-shell relative z-[10] flex w-full flex-1 flex-col pb-16 pt-24 md:pb-20 md:pt-32 lg:pt-36 xl:pt-40">
           <div className="flex shrink-0 justify-center md:justify-end">
             <div className="flex w-full max-w-none flex-col items-center text-center md:items-end md:text-right">
               <motion.p
@@ -150,7 +150,7 @@ export function HomeLanding() {
       {/* ----------- SECTION: LEGENDARY FIGURES (The World / bosque ambiental) ----------- */}
       <section
         id="figures"
-        className="relative z-30 min-h-screen w-full overflow-x-hidden overflow-y-visible bg-[#050505] px-6 pb-14 pt-20 md:px-12 md:pb-20 md:pt-24 flex flex-col justify-center"
+        className="relative z-30 flex min-h-screen w-full flex-col justify-center overflow-x-hidden overflow-y-visible bg-[#050505] pb-14 pt-20 md:pb-20 md:pt-24"
       >
         <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
           <Image
@@ -165,7 +165,7 @@ export function HomeLanding() {
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#050505] via-black/45 to-transparent" />
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col">
+        <div className="page-shell relative z-10 flex w-full flex-1 flex-col">
           <Reveal>
             <div className="relative mb-10 flex flex-col items-center text-center">
               <svg
