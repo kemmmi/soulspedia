@@ -42,12 +42,12 @@ export default function RootLayout({
           Next.js ya lo hace automáticamente con las funciones de arriba. 
       */}
       <body
-        className={`${loreFont.variable} ${dsInventoryFont.variable} antialiased text-white min-h-dvh`}
+        className={`${loreFont.variable} ${dsInventoryFont.variable} min-w-0 antialiased text-white min-h-dvh`}
       >
         <AppMotionConfig>
-          <div className="flex min-h-dvh flex-col text-white">
+          <div className="flex min-h-dvh min-w-0 flex-col text-white">
             <SiteHeader />
-            <main className="relative z-10 flex min-h-0 flex-1 flex-col">
+            <main className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
               {children}
             </main>
           </div>

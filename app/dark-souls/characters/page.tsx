@@ -84,7 +84,7 @@ function LoreCard({ item }: { item: LoreCardConfig }) {
           }`}
         >
           <h2
-            className={`text-center text-[clamp(0.65rem,2.8vw,1.125rem)] sm:text-[clamp(0.7rem,1.8vw,1.25rem)] md:text-xl ${cardTitleBase} opacity-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] group-hover:opacity-100 group-hover:drop-shadow-[0_0_18px_rgba(255,255,255,0.55),0_2px_12px_rgba(0,0,0,0.9)] group-focus-within:opacity-100 group-focus-within:drop-shadow-[0_0_18px_rgba(255,255,255,0.55),0_2px_12px_rgba(0,0,0,0.9)]`}
+            className={`text-center text-[0.7rem] sm:text-[0.8rem] md:text-lg lg:text-xl ${cardTitleBase} opacity-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] group-hover:opacity-100 group-hover:drop-shadow-[0_0_18px_rgba(255,255,255,0.55),0_2px_12px_rgba(0,0,0,0.9)] group-focus-within:opacity-100 group-focus-within:drop-shadow-[0_0_18px_rgba(255,255,255,0.55),0_2px_12px_rgba(0,0,0,0.9)]`}
           >
             {item.title}
           </h2>
@@ -96,8 +96,8 @@ function LoreCard({ item }: { item: LoreCardConfig }) {
 
 export default function DarkSoulsCharactersPage() {
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className="relative z-10 flex w-full flex-1 flex-col items-center overflow-x-visible px-4 pb-12 pt-6 md:px-8 md:pb-16 md:pt-8">
+    <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="page-shell relative z-10 flex w-full min-w-0 flex-1 flex-col items-center pb-12 pt-6 md:pb-16 md:pt-8">
         <div className="mb-8 flex w-full max-w-6xl justify-start lg:max-w-7xl">
           <Link
             href="/dark-souls"

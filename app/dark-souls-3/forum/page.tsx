@@ -15,8 +15,8 @@ const gamePageTitleTracking =
 
 export default function DarkSouls3ForumPage() {
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className="relative z-10 flex w-full flex-1 flex-col items-center px-4 pb-12 pt-6 md:px-8 md:pb-16 md:pt-8">
+    <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="page-shell relative z-10 flex w-full min-w-0 flex-1 flex-col items-center pb-12 pt-6 md:pb-16 md:pt-8">
         <div className="mb-8 flex w-full max-w-3xl justify-start lg:max-w-4xl">
           <Link
             href="/dark-souls-3"

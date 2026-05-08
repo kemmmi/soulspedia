@@ -11,7 +11,7 @@ const heroTracking =
   "tracking-[0.06em] sm:tracking-[0.07em] md:tracking-[0.08em] lg:tracking-[0.09em] xl:tracking-[0.1em]";
 
 const secondaryNavLinkClassName =
-  `block whitespace-nowrap bg-transparent text-[clamp(1rem,2.1vw,1.35rem)] font-semibold leading-none ${heroTracking} text-white/45 no-underline outline-none ring-0 transition-all duration-200 hover:text-white hover:[text-shadow:0_0_12px_rgba(252,211,77,0.65),0_0_26px_rgba(251,146,60,0.45),0_0_40px_rgba(234,88,12,0.25)] focus-visible:outline-none focus-visible:ring-0 sm:text-[clamp(1.1rem,2vw,1.65rem)] lg:text-xl xl:text-2xl`;
+  `block whitespace-nowrap bg-transparent text-sm font-semibold leading-none sm:text-base md:text-lg lg:text-xl xl:text-2xl ${heroTracking} text-white/45 no-underline outline-none ring-0 transition-all duration-200 hover:text-white hover:[text-shadow:0_0_12px_rgba(252,211,77,0.65),0_0_26px_rgba(251,146,60,0.45),0_0_40px_rgba(234,88,12,0.25)] focus-visible:outline-none focus-visible:ring-0`;
 
 export type GameHubLandingProps = {
   /** Ej. «DARK SOULS». Línea pequeña encima del titular grande. */
@@ -79,7 +79,7 @@ export function GameHubLanding(props: GameHubLandingProps) {
     <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden text-white">
       <motion.section
         aria-labelledby={heroTitleId}
-        className="relative flex min-h-[100svh] w-full flex-col px-4 pb-14 pt-28 text-center sm:pt-32 md:px-8 md:pt-40"
+        className="relative flex min-h-[100svh] w-full min-w-0 flex-col pb-14 pt-28 text-center sm:pt-32 md:pt-40"
         initial={reduce ? false : { opacity: 0, y: fsMotion.px.title }}
         animate={reduce ? false : { opacity: 1, y: 0 }}
         transition={{
@@ -92,20 +92,20 @@ export function GameHubLanding(props: GameHubLandingProps) {
           aria-hidden
         />
 
-        <div className="relative z-[45] mx-auto flex max-w-4xl flex-1 flex-col items-center lg:max-w-5xl">
-          <p className="font-lore text-[clamp(0.65rem,1.55vw,0.92rem)] font-normal uppercase tracking-[0.38em] text-amber-100/72">
+        <div className="page-gutter-x relative z-[45] mx-auto flex w-full min-w-0 max-w-4xl flex-1 flex-col items-center lg:max-w-5xl">
+          <p className="font-lore text-[0.7rem] font-normal uppercase tracking-[0.38em] text-amber-100/72 sm:text-xs md:text-sm">
             {seriesLine}
           </p>
 
           <h1
             id={heroTitleId}
-            className="mt-4 max-w-[20ch] text-[clamp(2.05rem,8.8vw,4.85rem)] font-semibold uppercase leading-[0.98] tracking-[0.035em] text-white [text-shadow:0_0_14px_rgba(0,0,0,0.82),0_0_42px_rgba(75,42,12,0.38),0_0_88px_rgba(42,22,8,0.22)] md:max-w-none"
+            className="mt-4 max-w-[20ch] text-4xl font-semibold uppercase leading-[0.98] tracking-[0.035em] text-white [text-shadow:0_0_14px_rgba(0,0,0,0.82),0_0_42px_rgba(75,42,12,0.38),0_0_88px_rgba(42,22,8,0.22)] sm:max-w-none sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
           >
             {roleHeadline}
           </h1>
 
           <p
-            className={`mt-5 max-w-3xl px-2 text-[clamp(0.78rem,1.85vw,1.125rem)] font-semibold uppercase leading-snug text-white/90 md:mt-6 md:max-w-4xl ${heroTracking}`}
+            className={`mt-5 max-w-3xl px-2 text-sm font-semibold uppercase leading-snug text-white/90 sm:text-base md:mt-6 md:max-w-4xl md:text-lg ${heroTracking}`}
           >
             {tagline}
           </p>
@@ -125,21 +125,20 @@ export function GameHubLanding(props: GameHubLandingProps) {
           <button
             type="button"
             onClick={scrollToLore}
-            className={`relative mt-14 inline-flex cursor-pointer items-center justify-center bg-transparent px-2 text-center text-[clamp(0.82rem,1.85vw,1.12rem)] font-semibold leading-snug text-amber-200/78 no-underline outline-none ring-0 transition-colors hover:text-amber-100/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/23 ${heroTracking}`}
+            className={`relative mt-14 inline-flex cursor-pointer items-center justify-center bg-transparent px-2 text-center text-sm font-semibold leading-snug text-amber-200/78 no-underline outline-none ring-0 transition-colors hover:text-amber-100/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/23 sm:text-base ${heroTracking}`}
           >
             {beginReadingLabel}
             <span
-              className="pointer-events-none absolute -bottom-2 left-1/2 h-px w-[min(38rem,92vw)] -translate-x-1/2 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent blur-[0.35px]"
+              className="pointer-events-none absolute -bottom-2 left-1/2 h-px w-full max-w-md -translate-x-1/2 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent blur-[0.35px] sm:max-w-xl md:max-w-2xl"
               aria-hidden
             />
           </button>
         </div>
       </motion.section>
 
-      <div
-        className="pointer-events-none relative z-[35] mx-auto h-px w-full max-w-4xl bg-gradient-to-r from-transparent via-amber-600/42 to-transparent shadow-[0_0_26px_rgba(234,88,12,0.22)]"
-        aria-hidden
-      />
+      <div className="page-gutter-x pointer-events-none relative z-[35]" aria-hidden>
+        <div className="mx-auto h-px w-full max-w-4xl bg-gradient-to-r from-transparent via-amber-600/42 to-transparent shadow-[0_0_26px_rgba(234,88,12,0.22)]" />
+      </div>
 
       {/* Fondo opaco solo bajo el lore para tapar la imagen fixed del layout
          (sin afectar al hero ni a las subrutas characters/forum). */}

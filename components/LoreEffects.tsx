@@ -76,7 +76,7 @@ export default function LoreEffects() {
   }), []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-transparent">
+    <section className="relative min-h-screen w-full min-w-0 overflow-hidden bg-transparent">
       
       {/* Capa de Partículas */}
       {particlesReady && (
@@ -89,24 +89,24 @@ export default function LoreEffects() {
 
       {/* Contenido del Lore */}
       <motion.div
-        className="relative z-20 flex min-h-screen w-full flex-col items-center justify-center px-6 py-24"
+        className="page-gutter-x relative z-20 flex min-h-screen w-full min-w-0 flex-col items-center justify-center py-24"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         onViewportEnter={() => setBurnKey((k) => k + 1)}
         transition={{ duration: 1.5 }}
       >
-        <div key={burnKey} className="animate-fade-in-burn mx-auto max-w-2xl text-center">
+        <div key={burnKey} className="animate-fade-in-burn mx-auto w-full min-w-0 max-w-2xl px-1 text-center sm:px-2">
           
           <div className="mx-auto mb-8 h-px w-24 bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
           
 
-          <h1 className="font-optimus mt-6 text-[clamp(2.5rem,8vw,5.5rem)] uppercase leading-none tracking-[0.1em] text-white [text-shadow:0_0_40px_rgba(255,77,0,0.4)]">
+          <h1 className="font-optimus mt-6 text-5xl uppercase leading-none tracking-[0.1em] text-white [text-shadow:0_0_40px_rgba(255,77,0,0.4)] sm:text-6xl md:text-7xl lg:text-8xl">
             Dark Souls
           </h1>
 
           <div className="mx-auto mt-10 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-          <div className="mt-12 space-y-8 font-lore text-[clamp(1.1rem,1.9vw,1.3rem)] leading-relaxed text-[#e2e2d5] antialiased">
+          <div className="mt-12 space-y-8 font-lore text-base leading-relaxed text-[#e2e2d5] antialiased sm:text-lg md:text-xl">
             <p>
               In the Age of Ancients, the world was unformed — shrouded by fog,
               a land of grey crags, archtrees and everlasting dragons.

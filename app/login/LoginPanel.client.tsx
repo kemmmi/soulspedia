@@ -8,7 +8,7 @@ export function LoginPanel() {
   const ease = fsMotion.ease;
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
+    <div className="page-gutter-x relative flex min-h-dvh min-w-0 items-center justify-center overflow-hidden py-12">
       <div
         className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/fondologinejemplo2.jpg')" }}
@@ -16,7 +16,7 @@ export function LoginPanel() {
       <div className="fixed inset-0 -z-10 bg-[#06090f]/25" />
 
       <motion.div
-        className="relative z-10 -mt-20 w-full max-w-md space-y-8 rounded-2xl bg-transparent p-8 sm:-mt-24"
+        className="relative z-10 -mt-20 w-full min-w-0 max-w-md space-y-8 rounded-2xl bg-transparent p-6 sm:-mt-24 sm:p-8"
         initial={reduce ? false : { opacity: 0, y: fsMotion.px.login }}
         animate={reduce ? false : { opacity: 1, y: 0 }}
         transition={{ duration: fsMotion.dur.loginShell, ease }}

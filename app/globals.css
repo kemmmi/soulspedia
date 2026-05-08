@@ -23,19 +23,66 @@
   /* Vinculamos la variable de Next.js con CSS */
   --font-ds-inventory: var(--font-ds-inventory);
   /**
-   * Marco de página: misma columna y mismos márgenes laterales en cualquier resolución
-   * (proporción estable; el zoom del navegador sigue afectando tamaño físico en mm).
+   * Marco de página: ancho máximo + sangrías solo en rem.
+   * (Sin vw: el zoom del navegador altera el viewport en px pero no desincroniza
+   * proporción respecto al texto igual que sí hace vw+rem.)
    */
   --page-max-width: 80rem; /* equiv. Tailwind max-w-7xl */
-  --page-margin-x: clamp(1.125rem, 2.65vw + 0.35rem, 3rem);
+  /* Base móvil; los @media siguientes refinan paso a paso (~100 % → escritorio) */
+  --page-margin-x: 1rem;
+}
+
+@media (min-width: 480px) {
+  :root {
+    --page-margin-x: 1.125rem;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-margin-x: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-margin-x: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-margin-x: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --page-margin-x: 3rem;
+  }
+}
+
+html {
+  /* Zoom explícito 100 % + fuente sólo tamaño texto: comportamiento estable */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  /* Evita ruptura horizontal típica por translate/anchos fijos en escritorio */
+  overflow-x: clip;
 }
 
 /* Contenedor centrado: ancho máximo compartido + sangría horizontal unificada */
 .page-shell {
   box-sizing: border-box;
   width: 100%;
+  min-width: 0;
   max-width: var(--page-max-width);
   margin-inline: auto;
+  padding-inline: var(--page-margin-x);
+}
+
+/* Solo sangría (fondos a ancho completo, contenido alineado con .page-shell) */
+.page-gutter-x {
+  box-sizing: border-box;
   padding-inline: var(--page-margin-x);
 }
 
@@ -52,6 +99,7 @@
 body {
   background: #000000;
   color: #ffffff;
+  min-width: 0;
   /* Por defecto usamos Optimus para el cuerpo o Geist si lo prefieres */
   font-family: "OptimusPrinceps", serif;
   font-weight: 400;

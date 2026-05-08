@@ -6,7 +6,7 @@ export default function DarkSoulsPage() {
   const imageName = "darksoulsfondo3.jpg"; 
 
   return (
-    <main className="relative min-h-screen w-full bg-black antialiased">
+    <main className="relative min-h-screen min-w-0 w-full overflow-x-hidden bg-black antialiased">
       
       {/* IMAGEN DE FONDO FORZADA */}
       <div className="fixed inset-0 z-0">

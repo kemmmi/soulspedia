@@ -24,15 +24,15 @@ export default function DarkSouls2Page() {
     >
       <section
         id="ds2-general-lore"
-        className="flex w-full justify-center px-4 pb-14 pt-28 md:px-8 md:pb-20 md:pt-32"
+        className="page-gutter-x flex w-full min-w-0 justify-center pb-14 pt-28 md:pb-20 md:pt-32"
         aria-labelledby="ds2-general-lore-title"
       >
-        <Reveal className="w-full max-w-3xl text-pretty lg:max-w-4xl">
+        <Reveal className="w-full min-w-0 max-w-3xl text-pretty lg:max-w-4xl">
           <h2 id="ds2-general-lore-title" className="sr-only">
             General story
           </h2>
           <div
-            className={`font-lore space-y-5 text-center lowercase text-[clamp(0.8rem,2vw,1.0625rem)] font-normal leading-relaxed text-white/88 sm:space-y-6 sm:text-base md:text-lg ${heroTracking}`}
+            className={`font-lore space-y-5 text-center lowercase text-sm font-normal leading-relaxed text-white/88 sm:space-y-6 sm:text-base md:text-lg lg:text-[1.0625rem] ${heroTracking}`}
           >
             <p>
               You cross the sea to the fallen kingdom of Drangleic — a name
