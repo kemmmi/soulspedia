@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Cormorant_Garamond, EB_Garamond } from "next/font/google"; // <--- Añadimos EB_Garamond aquí
 import { AppMotionConfig } from "@/components/AppMotionConfig";
-import { ConditionalSiteFooter } from "@/components/ConditionalSiteFooter.client";
 import { SiteHeader } from "@/components/SiteHeader";
 
 const loreFont = Cormorant_Garamond({
@@ -44,7 +43,6 @@ export default function RootLayout({
             <main className="relative z-10 flex min-h-0 flex-1 flex-col">
               {children}
             </main>
-            <ConditionalSiteFooter />
           </div>
         </AppMotionConfig>
       </body>

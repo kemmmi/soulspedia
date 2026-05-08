@@ -17,8 +17,11 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Forzamos fondo negro y texto blanco para toda la web */
+  --background: #000000;
+  --foreground: #ffffff;
+  /* Vinculamos la variable de Next.js con CSS */
+  --font-ds-inventory: var(--font-ds-inventory); 
 }
 
 @theme inline {
@@ -26,54 +29,83 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Añadimos las familias para que Tailwind las reconozca */
+  --font-optimus: "OptimusPrinceps", serif;
+  --font-lore: var(--font-ds-inventory), serif;
 }
 
 body {
   background: #000000;
   color: #ffffff;
-  font-family: "OptimusPrinceps", Georgia, "Times New Roman", serif;
-  font-weight: 600;
-  font-synthesis: none;
-}
-
-.font-lore {
-  font-family: var(--font-lore), Georgia, "Times New Roman", serif;
+  /* Por defecto usamos Optimus para el cuerpo o Geist si lo prefieres */
+  font-family: "OptimusPrinceps", serif;
   font-weight: 400;
   font-synthesis: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- CLASES DE UTILIDAD SOULS --- */
+
+.font-lore {
+  /* Esta clase ahora usará la fuente EB Garamond del inventario */
+  font-family: var(--font-ds-inventory), Georgia, serif !important;
+  color: #e2e2d5; /* Color hueso de Dark Souls */
+  font-weight: 400;
 }
 
 .font-optimus {
-  font-family: "OptimusPrinceps", Georgia, "Times New Roman", serif;
+  font-family: "OptimusPrinceps", serif;
   font-style: normal;
-  font-synthesis: none;
 }
 
-/* Quitar flechas de inputs numéricos (Chrome, Safari, Edge) */
+/* Wordmark del navbar — desgaste nítido (grano capado sobre el texto, sin matrix extra ni displacement) */
+.nav-wordmark-worn {
+  -webkit-font-smoothing: antialiased;
+  filter: url(#soulspediaNavWordmarkWear);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-wordmark-worn {
+    filter: none;
+  }
+}
+
+/* --- Título "Legendary Figures": desgaste nítido (sin línea traversa ni desenfoque) --- */
+.legendary-worn-heading {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  text-decoration-line: none;
+}
+
+.legendary-worn-heading__text {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  text-decoration-line: none;
+  filter: url(#legendaryFiguresWearSharpFilter);
+}
+
+/* Quitar flechas de inputs numéricos */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
 }
 
-/* Ocultar barra de scroll horizontal pero permitir desplazar con dedo/teclado */
+/* Ocultar barra de scroll horizontal */
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
