@@ -122,36 +122,6 @@ body {
   font-style: normal;
 }
 
-/* Wordmark del navbar — desgaste nítido (grano capado sobre el texto, sin matrix extra ni displacement) */
-.nav-wordmark-worn {
-  -webkit-font-smoothing: antialiased;
-  filter: url(#soulspediaNavWordmarkWear);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nav-wordmark-worn {
-    filter: none;
-  }
-}
-
-/* --- Título "Legendary Figures": desgaste nítido (sin línea traversa ni desenfoque) --- */
-.legendary-worn-heading {
-  position: relative;
-  display: inline-block;
-  text-decoration: none;
-  text-decoration-line: none;
-}
-
-.legendary-worn-heading__text {
-  position: relative;
-  z-index: 2;
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-  text-decoration: none;
-  text-decoration-line: none;
-  filter: url(#legendaryFiguresWearSharpFilter);
-}
-
 /* Quitar flechas de inputs numéricos */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {

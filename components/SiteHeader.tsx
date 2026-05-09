@@ -28,50 +28,6 @@ export function SiteHeader() {
       animate={reduce ? false : { opacity: 1, y: 0 }}
       transition={{ duration: fsMotion.dur.chrome, ease }}
     >
-      <svg
-        className="pointer-events-none absolute h-0 w-0 overflow-hidden"
-        aria-hidden
-      >
-        <defs>
-          {/* Desgaste nítido (primera versión): grano + multiply, misma técnica base que Legendary Figures */}
-          <filter
-            id="soulspediaNavWordmarkWear"
-            x="-10%"
-            y="-10%"
-            width="120%"
-            height="120%"
-            colorInterpolationFilters="sRGB"
-          >
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.11 0.173"
-              numOctaves="4"
-              seed="93"
-              stitchTiles="stitch"
-              result="noise"
-            />
-            <feColorMatrix
-              in="noise"
-              type="saturate"
-              values="0"
-              result="gray"
-            />
-            <feComponentTransfer in="gray" result="grain">
-              <feFuncR type="gamma" amplitude="1" exponent="1.65" offset="0.22" />
-              <feFuncG type="gamma" amplitude="1" exponent="1.65" offset="0.22" />
-              <feFuncB type="gamma" amplitude="1" exponent="1.65" offset="0.22" />
-            </feComponentTransfer>
-            <feComposite
-              in="grain"
-              in2="SourceGraphic"
-              operator="in"
-              result="grainMasked"
-            />
-            <feBlend in="SourceGraphic" in2="grainMasked" mode="multiply" />
-          </filter>
-        </defs>
-      </svg>
-
       {/* Ancho completo del viewport + mismas sangrías que --page-margin-x; sin max-width del .page-shell para separar logo / nav a los extremos */}
       <div className="relative flex w-full min-w-0 flex-col items-center gap-5 px-[var(--page-margin-x)] pb-4 pt-8 sm:gap-6 sm:pt-9 xl:flex-row xl:flex-nowrap xl:items-center xl:justify-between xl:gap-x-6 xl:gap-y-3 xl:pb-3.5 xl:pt-8">
         <motion.div
@@ -90,7 +46,7 @@ export function SiteHeader() {
         >
           <Link
             href="/"
-            className={`${brandWordmarkClassName} nav-wordmark-worn`}
+            className={brandWordmarkClassName}
           >
             SOULSPEDIA
           </Link>
@@ -100,15 +56,15 @@ export function SiteHeader() {
           aria-label="Secciones principales"
           className="flex w-full min-w-0 flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:flex-nowrap xl:w-auto xl:justify-end md:gap-x-5 lg:gap-x-6"
         >
-          <Link href="/#chronicles" className={navLinkClass}>
-            The Chronicles
+          <Link href="/#trilogy" className={navLinkClass}>
+            Trilogy
           </Link>
           <span
             aria-hidden
             className="h-[1px] w-[0.9rem] shrink-0 bg-white/72 md:w-[1.05rem]"
           />
-          <Link href="/#figures" className={navLinkClass}>
-            Legendary Figures
+          <Link href="/login" className={navLinkClass}>
+            Login
           </Link>
         </nav>
       </div>
