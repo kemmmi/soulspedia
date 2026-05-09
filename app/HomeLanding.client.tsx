@@ -224,7 +224,8 @@ export function HomeLanding() {
           <div className="relative flex-1 grid min-w-0 grid-cols-1 gap-x-10 gap-y-14 pb-4 xl:grid-cols-12 xl:gap-y-6 xl:pb-[min(38vh,22rem)] 2xl:pb-[26rem]">
             
             {/* Left Block: THE LORDS OF CINDER */}
-            <div className="relative flex min-w-0 flex-col items-start gap-6 sm:flex-row sm:gap-8 md:gap-10 xl:col-span-7 xl:-translate-x-20 xl:translate-y-14 2xl:-translate-x-32 2xl:translate-y-20">
+            {/* xl (1280–1535): offsets suaves para no pegar contenido al borde. Desde 2xl (≥1536): mismo collage que antes. */}
+            <div className="relative flex min-w-0 flex-col items-start gap-6 sm:flex-row sm:gap-8 md:gap-10 xl:col-span-7 xl:-translate-x-10 xl:translate-y-10 2xl:-translate-x-32 2xl:translate-y-20">
               {/* Imagen vertical a la izquierda */}
               <Reveal className="w-full max-w-[20rem] flex-shrink-0 sm:w-[48%] sm:max-w-none">
                 <div className="relative aspect-[3/4] overflow-hidden border border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black">
@@ -256,7 +257,7 @@ export function HomeLanding() {
             </div>
 
             {/* Right Block: THE UNKINDLED & OUTCASTS */}
-            <div className="flex min-w-0 flex-col gap-5 sm:gap-6 xl:col-span-5 xl:translate-x-32 xl:justify-self-end 2xl:translate-x-44">
+            <div className="flex min-w-0 flex-col gap-5 sm:gap-6 xl:col-span-5 xl:translate-x-12 xl:justify-self-end 2xl:translate-x-44">
               <Reveal className="w-full max-xl:mx-auto max-xl:max-w-2xl sm:w-[88%] xl:w-[90%]">
                 <div className="relative aspect-video overflow-hidden border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.7)] bg-black">
                   <Image
