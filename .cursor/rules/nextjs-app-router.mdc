@@ -1,0 +1,154 @@
+---
+description: Next.js 16 App Router patterns for Soulspedia. Routing, layouts, images, data fetching.
+globs: app/**/*.tsx, app/**/*.ts
+alwaysApply: false
+---
+
+# Next.js App Router — Soulspedia Patterns
+
+## Core Rules
+- Always App Router (`app/`). Never Pages Router (`pages/`).
+- Always use `@/` alias for all imports.
+- Framework: Next.js 16, React 19.
+
+---
+
+## Server vs Client Components
+
+### Decision tree
+```
+Does it use useState, useEffect, useRef, hooks, or browser APIs? → "use client"
+Does it handle user events (onClick, onChange)?                  → "use client"
+Everything else                                                  → Server Component (no directive)
+```
+
+### File naming convention
+```
+app/page.tsx                    → Server Component (no directive)
+app/HomeLanding.client.tsx      → Client Component ("use client" at top)
+app/login/LoginPanel.client.tsx → Client Component ("use client" at top)
+```
+
+### Composing Server + Client
+```tsx
+// app/dark-souls/page.tsx — Server Component
+import { GameHubLanding } from "@/components/game/GameHubLanding.client";
+
+export default async function DarkSoulsPage() {
+  const data = await fetchSomeData(); // server-side fetch
+  return <GameHubLanding data={data} />;
+}
+```
+Pass data as props from Server to Client. Never fetch inside Client Components unless the data is user-specific or real-time.
+
+---
+
+## Layouts
+
+### Game layout pattern (fixed background)
+```tsx
+// app/dark-souls/layout.tsx — Server Component
+export default function DarkSoulsLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative min-h-screen">
+      <div className="fixed inset-0 -z-10">
+        <Image src="/ds1-bg.jpg" alt="" fill priority className="object-cover opacity-30" />
+      </div>
+      {children}
+    </div>
+  );
+}
+```
+
+### Root layout
+`app/layout.tsx` includes: font variables, `<SiteHeader>`, `<AppMotionConfig>`.
+Do not duplicate these in nested layouts.
+
+---
+
+## Images — next/image
+
+### Rules
+- Always `next/image`. Never `<img>` or CSS `background-image` in components.
+- `fill` + `object-cover` for full-bleed backgrounds.
+- `priority` on every image above the fold.
+- Always provide `sizes` — directly affects LCP.
+
+### Patterns
+```tsx
+// Full-bleed background (above fold)
+<div className="relative w-full h-screen">
+  <Image src="/inicio.png" alt="" fill priority sizes="100vw" className="object-cover" />
+</div>
+
+// Card image (below fold)
+<div className="relative w-full aspect-[3/4]">
+  <Image
+    src="/character.jpg"
+    alt="Artorias the Abysswalker"
+    fill
+    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+    className="object-cover object-top"
+  />
+</div>
+```
+
+---
+
+## Data Fetching
+
+### Server Component (preferred)
+```tsx
+export default async function CharactersPage() {
+  const { data: characters } = await supabase
+    .from("characters")
+    .select("*")
+    .eq("game", "dark-souls");
+
+  return <CharacterGrid characters={characters} />;
+}
+```
+
+### Client-side (only when necessary)
+Use only for: real-time data, user-specific data post-auth, or data dependent on client state.
+
+---
+
+## Metadata
+```tsx
+// Static
+export const metadata = {
+  title: "Dark Souls — Soulspedia",
+  description: "Lore archive for Dark Souls.",
+};
+
+// Dynamic
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  return { title: `${params.slug} — Soulspedia` };
+}
+```
+
+---
+
+## Game Route Pattern
+Every game follows this exact structure — replicate, never invent a new one:
+```
+app/
+└── [game-slug]/
+    ├── layout.tsx        ← fixed bg image, Server Component
+    ├── page.tsx          ← GameHubLanding, Server Component
+    ├── characters/
+    │   └── page.tsx      ← LoreCard grid, async data fetch
+    └── forum/
+        └── page.tsx      ← placeholder or Supabase threads
+```
+
+---
+
+## Common Mistakes to Avoid
+- ❌ `useRouter` or `useSearchParams` in Server Components → add `"use client"`
+- ❌ Missing `priority` on hero/background images → LCP regression
+- ❌ `<img>` instead of `next/image`
+- ❌ Fetching inside Client Components when a Server fetch is possible
+- ❌ `"use client"` on layout.tsx → breaks server rendering of children
+- ❌ `getServerSideProps` or `getStaticProps` — App Router only, always

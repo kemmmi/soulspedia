@@ -56,7 +56,7 @@ export function SiteHeader() {
           aria-label="Secciones principales"
           className="flex w-full min-w-0 flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:flex-nowrap xl:w-auto xl:justify-end md:gap-x-5 lg:gap-x-6"
         >
-          <Link href="/#trilogy" className={navLinkClass}>
+          <Link href="/trilogy" className={navLinkClass}>
             Trilogy
           </Link>
           <span

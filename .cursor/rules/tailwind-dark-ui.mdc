@@ -1,0 +1,135 @@
+---
+description: Tailwind CSS v4 tokens, dark UI effects, and utility patterns for Soulspedia.
+globs: **/*.tsx, **/*.css
+alwaysApply: false
+---
+
+# Tailwind CSS — Dark UI Patterns (Soulspedia)
+
+## Core Rules
+- Tailwind CSS v4 with PostCSS. Some v3 utilities may not exist — verify before using.
+- CSS custom properties in `app/globals.css` take priority over hardcoded values.
+- Never use arbitrary color values when a token exists.
+- `overflow-x: clip` on `html` — never override.
+
+---
+
+## Design Tokens
+
+### Colors
+```
+Background base:   #050505      → bg-[#050505]       Never bg-black
+Accent gold:       amber-100/90 → text-amber-100/90
+Accent bone:       white/82     → text-white/82
+Lore text:         #e0e0d8      → text-[#e0e0d8]
+Border subtle:     white/5      → border-white/5
+Border visible:    white/15     → border-white/15
+Border emphasis:   white/25     → border-white/25
+```
+Borders are **always semi-transparent**. No opaque borders ever.
+
+### Typography
+```
+font-optimus → OptimusPrinceps. Always uppercase. tracking-[0.06em] minimum.
+font-lore    → EB Garamond. tracking-tight. text-base minimum.
+```
+
+### Layout utilities
+```
+.page-shell    → max-w-[80rem] mx-auto px-[var(--page-margin-x)]
+.page-gutter-x → px-[var(--page-margin-x)]  (no max-width)
+```
+Never hardcode horizontal margins. Always use `.page-shell` or `--page-margin-x`.
+
+---
+
+## Recurring Effect Classes
+
+### Text glows
+```tsx
+// Dark atmospheric glow (default state)
+"[text-shadow:0_0_14px_rgba(0,0,0,0.82),0_0_42px_rgba(75,42,12,0.38),0_0_88px_rgba(42,22,8,0.22)]"
+
+// Gold hover glow
+"hover:[text-shadow:0_0_14px_rgba(252,211,77,0.55),0_0_28px_rgba(251,146,60,0.42),0_0_48px_rgba(234,88,12,0.22)]"
+```
+
+### Gradient overlays
+```tsx
+// Section top fade
+"bg-gradient-to-b from-black/90 via-black/55 to-transparent"
+
+// Section bottom fade
+"bg-gradient-to-t from-black/90 via-black/40 to-transparent"
+
+// Ambient radial glow
+"bg-[radial-gradient(circle_at_70%_50%,rgba(255,80,0,0.1)_0%,rgba(0,0,0,0.9)_70%)]"
+
+// Image vignette
+"bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]"
+```
+
+### Cards and containers
+```tsx
+// Base card
+"relative border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+
+// Hover state
+"transition-colors duration-700 hover:border-white/15 hover:bg-white/[0.04]"
+
+// Separator line
+"h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"
+```
+
+---
+
+## Responsive Patterns
+
+```tsx
+// Grid: 1 col → 2 → 3 → 4
+"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+
+// Typography scaling
+"text-sm md:text-base lg:text-lg"
+
+// Full bleed mobile, contained desktop
+"w-full lg:max-w-[80rem] lg:mx-auto"
+```
+
+---
+
+## Advanced Patterns
+
+### group-hover for card reveals
+```tsx
+<div className="group relative overflow-hidden">
+  <Image className="transition-transform duration-700 group-hover:scale-105" ... />
+  <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+    <span className="font-optimus uppercase tracking-[0.06em] text-amber-100/90">{name}</span>
+  </div>
+</div>
+```
+
+### peer for form states
+```tsx
+<input className="peer bg-transparent border-b border-white/10 focus:border-amber-100/50 outline-none transition-colors duration-500" />
+<label className="peer-focus:text-amber-100/70 transition-colors duration-300">Email</label>
+```
+
+### Arbitrary CSS properties (Tailwind v4)
+```tsx
+"[text-shadow:...]"            // custom shadow
+"[writing-mode:vertical-rl]"   // vertical text
+```
+
+---
+
+## ❌ Anti-Patterns
+- `bg-black` → use `bg-[#050505]`
+- Hardcoded `px-4 mx-auto max-w-7xl` → use `.page-shell`
+- `border-white` or `border-gray-700` → always opacity variants
+- `font-sans` or `font-serif` → use `font-optimus` or `font-lore`
+- `transition` without duration → always `transition-colors duration-500`
+- `text-white` for body text → use `text-[#e0e0d8]` or `text-white/82`
+- `rounded-xl` or `rounded-2xl` → max `rounded-sm`, prefer `rounded-none`
+- `shadow-lg` → use custom rgba text-shadow or drop-shadow

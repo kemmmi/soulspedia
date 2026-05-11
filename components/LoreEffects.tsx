@@ -1,12 +1,51 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import type { ISourceOptions } from "@tsparticles/engine";
 
-export default function LoreEffects() {
+function ReadMoreEyeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+export type LoreEffectsProps = {
+  /** Etiqueta pequeña encima del título (p. ej. WORLD) */
+  worldLabel?: string;
+  /** Nombre del reino / región icónica (Optimus Princeps) */
+  realmName: string;
+  /** Párrafo breve bajo el título (EB Garamond) */
+  description?: string;
+  /** Enlace “Read more” (estilo Bloodborne) */
+  readMoreHref?: string;
+  readMoreLabel?: string;
+};
+
+export default function LoreEffects({
+  worldLabel = "WORLD",
+  realmName,
+  description,
+  readMoreHref = "#",
+  readMoreLabel = "Read more",
+}: LoreEffectsProps) {
   const [particlesReady, setParticlesReady] = useState(false);
   const [burnKey, setBurnKey] = useState(0);
 
@@ -76,7 +115,7 @@ export default function LoreEffects() {
   }), []);
 
   return (
-    <section className="relative min-h-screen w-full min-w-0 overflow-hidden bg-transparent">
+    <section className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-transparent">
       
       {/* Capa de Partículas */}
       {particlesReady && (
@@ -87,34 +126,50 @@ export default function LoreEffects() {
         />
       )}
 
-      {/* Contenido del Lore */}
+      {/* Sangría lateral + offset vertical (sin min-h extra: evita scroll fantasma) */}
       <motion.div
-        className="page-gutter-x relative z-20 flex min-h-screen w-full min-w-0 flex-col items-center justify-center py-24"
+        className="page-gutter-x relative z-20 w-full min-w-0 pt-[30vh] pb-16 sm:pt-[34vh] md:pt-[38vh] lg:pt-[42vh]"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         onViewportEnter={() => setBurnKey((k) => k + 1)}
         transition={{ duration: 1.5 }}
       >
-        <div key={burnKey} className="animate-fade-in-burn mx-auto w-full min-w-0 max-w-2xl px-1 text-center sm:px-2">
-          
-          <div className="mx-auto mb-8 h-px w-24 bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
-          
+        <div
+          key={burnKey}
+          className="animate-fade-in-burn w-full min-w-0 max-w-xl ps-6 text-left sm:ps-10 md:max-w-2xl md:ps-14 lg:ps-20"
+        >
+          <p className="font-optimus text-[0.7rem] font-semibold uppercase tracking-[0.42em] text-white/85 sm:text-xs">
+            {worldLabel}
+          </p>
 
-          <h1 className="font-optimus mt-6 text-5xl uppercase leading-none tracking-[0.1em] text-white [text-shadow:0_0_40px_rgba(255,77,0,0.4)] sm:text-6xl md:text-7xl lg:text-8xl">
-            Dark Souls
+          <h1 className="font-optimus mt-4 text-4xl font-normal uppercase leading-[1.05] tracking-[0.08em] text-white [text-shadow:0_0_36px_rgba(255,77,0,0.35)] sm:mt-5 sm:text-5xl sm:tracking-[0.1em] md:text-6xl">
+            {realmName}
           </h1>
 
-          <div className="mx-auto mt-10 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-          <div className="mt-12 space-y-8 font-lore text-base leading-relaxed text-[#e2e2d5] antialiased sm:text-lg md:text-xl">
-            <p>
-              In the Age of Ancients, the world was unformed — shrouded by fog,
-              a land of grey crags, archtrees and everlasting dragons.
-            </p>
-            
+          <div
+            className="mt-5 flex w-full max-w-md items-center gap-3 sm:mt-6 sm:max-w-lg"
+            aria-hidden="true"
+          >
+            <span className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-white/25" />
+            <span className="font-optimus text-[0.55rem] text-amber-200/35 sm:text-[0.65rem]">
+              ✦
+            </span>
+            <span className="h-px flex-1 bg-gradient-to-l from-transparent via-white/10 to-white/25" />
           </div>
 
-          <div className="mx-auto mt-12 h-px w-24 bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
+          {description ? (
+            <p className="font-lore mt-8 max-w-md text-base leading-relaxed text-[#e2e2d5] antialiased sm:text-lg">
+              {description}
+            </p>
+          ) : null}
+
+          <Link
+            href={readMoreHref}
+            className="font-lore mt-8 inline-flex items-center gap-2.5 text-[0.65rem] uppercase tracking-[0.32em] text-[#e2e2d5]/88 antialiased transition-colors hover:text-white sm:text-xs"
+          >
+            <ReadMoreEyeIcon className="shrink-0 opacity-90" />
+            <span>{readMoreLabel}</span>
+          </Link>
         </div>
       </motion.div>
     </section>

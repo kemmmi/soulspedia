@@ -1,0 +1,172 @@
+---
+description: FromSoftware animation system for Soulspedia. All timing, easing, and motion patterns.
+globs: **/*.tsx, **/*.ts
+alwaysApply: false
+---
+
+# Framer Motion — FromSoftware Animation System
+
+## Core Rule
+Never hardcode duration or easing values. All presets live in `@/lib/motion/fromSoftware`.
+
+```ts
+import { fsMotion } from "@/lib/motion/fromSoftware";
+```
+
+---
+
+## fsMotion API Reference
+
+### Easing
+```ts
+fsMotion.ease // [0.33, 0, 0.17, 1] — canonical. Deep ease-out, no bounce.
+              // Alternative for longer entries: [0.43, 0.13, 0.23, 0.96]
+              // Scroll-snap programmatic: [0.22, 1, 0.36, 1] duration 1.5s
+```
+
+### Durations (`fsMotion.dur.*`)
+```ts
+fsMotion.dur.reveal       // 1.05s — scroll reveal entries
+fsMotion.dur.headline     // 1.05s — hero headings
+fsMotion.dur.route        // 0.82s — route transitions
+fsMotion.dur.chrome       // 0.88s — header / footer
+fsMotion.dur.background   // 2.1s  — background image fade-in
+fsMotion.dur.loginShell   // 1s    — login container
+fsMotion.dur.loginField   // 0.76s — login inputs
+```
+
+### Y Offsets (`fsMotion.px.*`)
+```ts
+fsMotion.px.reveal   // 10px  — scroll reveal
+fsMotion.px.title    // 10px  — headings
+fsMotion.px.login    // 14px  — login panel
+fsMotion.px.headerY  // -5px  — header entry (moves down into place)
+```
+
+### Staggers (`fsMotion.stagger.*`)
+```ts
+fsMotion.stagger.headline  // 0.22s — between heading lines
+fsMotion.stagger.navGap    // 0.26s — between nav links
+// Generic list stagger: 0.1s minimum between children
+```
+
+### Hero Intro (`fsMotion.homeIntro.*`)
+Full choreography for the home hero. Use as-is, don't override individual values.
+
+---
+
+## Patterns
+
+### Standard entry (opacity + y)
+```tsx
+const reduce = useReducedMotion();
+
+<motion.div
+  initial={reduce ? false : { opacity: 0, y: fsMotion.px.reveal }}
+  animate={reduce ? false : { opacity: 1, y: 0 }}
+  transition={{ duration: fsMotion.dur.reveal, ease: fsMotion.ease }}
+/>
+```
+
+### Staggered list
+```tsx
+const reduce = useReducedMotion();
+
+<motion.ul
+  initial="hidden"
+  animate="visible"
+  variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+>
+  {items.map(item => (
+    <motion.li
+      key={item.id}
+      variants={{
+        hidden: reduce ? {} : { opacity: 0, y: fsMotion.px.reveal },
+        visible: { opacity: 1, y: 0, transition: { duration: fsMotion.dur.reveal, ease: fsMotion.ease } },
+      }}
+    />
+  ))}
+</motion.ul>
+```
+
+### Scroll reveal — always use the wrapper
+```tsx
+import { Reveal } from "@/components/motion/Reveal";
+
+<Reveal>
+  <p>Lore content</p>
+</Reveal>
+```
+Never re-implement scroll reveal logic inline. Always use `<Reveal>`.
+
+### Route transition (template.tsx)
+```tsx
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: fsMotion.dur.route, ease: fsMotion.ease }}
+>
+  {children}
+</motion.div>
+```
+
+### Background image fade
+```tsx
+<motion.div
+  initial={reduce ? false : { opacity: 0 }}
+  animate={reduce ? false : { opacity: 0.55 }}
+  transition={{ duration: fsMotion.dur.background, ease: fsMotion.ease }}
+  className="absolute inset-0"
+>
+  <Image src="..." alt="" fill priority className="object-cover" />
+</motion.div>
+```
+
+### Ambient particles / embers / fog
+Use CSS animations, not Framer Motion. Keeps the main thread free.
+```css
+@keyframes ember-float {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  50%  { opacity: 0.6; }
+  100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
+}
+.ember { animation: ember-float 4s ease-in-out infinite; }
+```
+
+---
+
+## ✅ Allowed
+- `opacity` + `y` as entry properties (max 20px offset)
+- `scale` only for micro hover interactions (`whileHover={{ scale: 1.02 }}`)
+- Stagger via `staggerChildren` in variants
+- CSS animations for particles, fog, and looping ambience
+
+## ❌ Prohibited
+- `spring` type (any bounce perception)
+- `bounce` or `elastic` on any property
+- `scale` as a page or section entry animation
+- Duration < 0.7s on page-level animations
+- `x` as a primary entry axis
+- Framer Motion built-in named easings (`"easeOut"`, `"easeInOut"`) without custom curve
+
+---
+
+## Reduced Motion — Non-Negotiable
+Every animated component must respect `useReducedMotion()`:
+
+```tsx
+import { useReducedMotion } from "framer-motion";
+const reduce = useReducedMotion();
+
+// Use `false` (not `{}`) to skip animation — avoids flash
+initial={reduce ? false : { opacity: 0, y: fsMotion.px.reveal }}
+```
+
+Using `{}` instead of `false` still runs the animation. Always use `false`.
+
+---
+
+## Global Config
+`AppMotionConfig` in `@/components/AppMotionConfig.tsx` wraps the app with `<MotionConfig>`.
+Do not add another `<MotionConfig>` wrapper. Override at component level via `transition` props only.

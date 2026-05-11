@@ -6,8 +6,7 @@ export default function DarkSoulsPage() {
   const imageName = "darksoulsfondo3.jpg"; 
 
   return (
-    <main className="relative min-h-screen min-w-0 w-full overflow-x-hidden bg-black antialiased">
-      
+    <main className="relative flex min-h-0 w-full flex-1 flex-col overflow-x-hidden bg-black antialiased">
       {/* IMAGEN DE FONDO FORZADA */}
       <div className="fixed inset-0 z-0">
         <Image
@@ -22,9 +21,13 @@ export default function DarkSoulsPage() {
         <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
       </div>
 
-      {/* COMPONENTE DE LORE (Texto y partículas) */}
-      <div className="relative z-10">
-        <LoreEffects />
+      {/* Ascuas + bloque WORLD: flex-1 para encajar en el viewport bajo el header (sin scroll fantasma) */}
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+        <LoreEffects
+          realmName="Lordran"
+          description="In the Age of Ancients, the world was unformed — shrouded by fog, a land of grey crags, archtrees and everlasting dragons."
+          readMoreHref="/dark-souls/characters"
+        />
       </div>
 
     </main>

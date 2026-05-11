@@ -1,0 +1,50 @@
+# Soulspedia — Cursor Rules
+
+## Project
+Dark Fantasy lore archive (Dark Souls I/II/III, expanding to Elden Ring).
+Goal: atmospheric, scholarly, cinematic UX. Never generic or bouncy.
+Next.js 16 App Router · React 19 · TypeScript · Supabase · Tailwind CSS v4.
+Always use `@/` alias for imports.
+
+---
+
+## Skills — Read Before Acting
+
+These skill files contain the detailed rules for each domain.
+**Always read the relevant skill before writing code in that area.**
+
+| When you are working on... | Read this skill |
+|---|---|
+| Any animation, transition, or motion effect | `.cursor/skills/framer-motion-fromsoftware.md` |
+| Pages, layouts, images, routing, data fetching | `.cursor/skills/nextjs-app-router.md` |
+| Tailwind classes, colors, effects, responsive | `.cursor/skills/tailwind-dark-ui.md` |
+| Any UI component, section, or visual design | `.cursor/skills/frontend-design-soulspedia.md` |
+
+---
+
+## Workflow (Álvaro's Method)
+- New features or complex fixes: always start with a `@plan` before writing code.
+- Work section-by-section. Never refactor a whole page in one step.
+- If context is missing, ask for a URL or search before assuming.
+- Use Supabase MCP if available; otherwise use `@/lib/supabase.ts`.
+- Before running any terminal command, explain in one line what it does and why.
+---
+
+## Key Files
+- `@/lib/motion/fromSoftware.ts` — all animation timing/easing presets
+- `@/lib/supabase.ts` — Supabase client
+- `@/components/motion/Reveal.tsx` — scroll reveal wrapper
+- `@/components/game/GameHubLanding.client.tsx` — reusable game hub base
+- `@/app/globals.css` — CSS variables, @font-face, .page-shell
+
+---
+
+## Non-Negotiable Rules
+1. Background is always `#050505`, never `#000`.
+2. All bg images use `next/image` with opacity + gradient overlays. Never CSS `background-image`.
+3. Minimum 0.85s for page-level animations. Read the animation skill for all timing values.
+4. `font-optimus` is always `uppercase`. No exceptions.
+5. No `spring`, `bounce`, or `elastic` in any animation.
+6. `useReducedMotion()` in every animated component. Not optional.
+7. Borders are always semi-transparent (`white/5` to `white/25`). No opaque borders.
+8. Never hardcode horizontal margins — use `.page-shell` or `--page-margin-x`.
