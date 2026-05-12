@@ -1,6 +1,7 @@
 "use client";
 
 import { fsMotion } from "@/lib/motion/fromSoftware";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 
@@ -9,50 +10,50 @@ export function LoginPanel() {
   const ease = fsMotion.ease;
 
   useEffect(() => {
-    const html = document.documentElement;
     const body = document.body;
     const prev = {
-      htmlOverflow: html.style.overflow,
       bodyOverflow: body.style.overflow,
-      htmlOverscroll: html.style.overscrollBehavior,
     };
-    html.style.overflow = "hidden";
     body.style.overflow = "hidden";
-    html.style.overscrollBehavior = "none";
     return () => {
-      html.style.overflow = prev.htmlOverflow;
       body.style.overflow = prev.bodyOverflow;
-      html.style.overscrollBehavior = prev.htmlOverscroll;
     };
   }, []);
 
   return (
-    <div className="page-gutter-x relative flex min-h-[100dvh] min-w-0 items-center justify-center overflow-hidden overscroll-none py-12">
+    <div className="page-gutter-x relative flex h-full min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden overscroll-none">
       {/* Fondo */}
-      <div
-        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-[0.78]"
-        style={{ backgroundImage: "url('/loginfondoshrine.jpg')" }}
-      />
-      <div className="fixed inset-0 -z-10 bg-[#06090f]/45" />
+      <div className="fixed inset-0 -z-10 bg-black" />
 
       <motion.div
-        className="relative z-10 -mt-20 w-full min-w-0 max-w-lg space-y-12 bg-transparent p-6 sm:-mt-24 sm:p-8"
+        className="relative z-10 -mt-20 w-full min-w-0 max-w-lg space-y-12 bg-black/80 p-6 sm:-mt-24 sm:p-8"
         initial={reduce ? false : { opacity: 0, y: fsMotion.px.login }}
         animate={reduce ? false : { opacity: 1, y: 0 }}
         transition={{ duration: fsMotion.dur.loginShell, ease }}
       >
         {/* Título */}
         <div className="text-center">
-          <h2 className="font-optimus text-center text-4xl font-semibold uppercase leading-none tracking-[0.06em] text-white [-webkit-text-stroke:1px_#000] [paint-order:stroke_fill] drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] sm:text-5xl sm:tracking-[0.07em] md:text-[2.65rem] md:tracking-[0.08em] md:[-webkit-text-stroke:1.5px_#000]">
-            Login
+          <h2 className="font-optimus text-center text-3xl font-semibold uppercase leading-none tracking-[0.06em] text-white [-webkit-text-stroke:1px_#000] [paint-order:stroke_fill] drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] sm:text-4xl sm:tracking-[0.07em] md:text-[2.15rem] md:tracking-[0.08em]">
+            <span className="sr-only">Login</span>
+            <span aria-hidden>&nbsp;</span>
           </h2>
         </div>
 
         <form className="mt-8 space-y-3" action="#" method="POST">
           <div className="space-y-4">
+            <div className="-mt-16 mb-8 flex justify-center">
+              <Image
+                src="/bonfire.gif"
+                alt=""
+                width={96}
+                height={96}
+                priority
+              />
+            </div>
+
             {/* Campo Email */}
             <motion.div
-              className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4"
+              className="grid grid-cols-1 gap-1.5 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-3"
               initial={reduce ? false : { opacity: 0 }}
               animate={reduce ? false : { opacity: 1 }}
               transition={{
@@ -63,7 +64,7 @@ export function LoginPanel() {
             >
               <label
                 htmlFor="email-address"
-                className="font-lore shrink-0 text-left text-base font-normal normal-case tracking-normal text-white/85 antialiased sm:w-[11.75rem] sm:text-lg sm:leading-snug sm:pt-0.5 md:text-xl"
+                className="font-lore text-left text-base font-normal normal-case tracking-normal text-white/85 antialiased sm:text-lg sm:leading-snug sm:pt-0.5 md:text-xl"
               >
                 Email address
               </label>
@@ -73,13 +74,13 @@ export function LoginPanel() {
                 type="email"
                 autoComplete="email"
                 required
-                className="font-optimus min-w-0 flex-1 rounded-none border border-white/10 bg-black/20 px-4 py-3.5 text-base uppercase tracking-[0.12em] text-slate-200 focus:border-white/40 focus:bg-black/40 focus:outline-none transition-all sm:px-6 sm:py-4 sm:text-lg sm:tracking-[0.2em] md:text-[1.125rem]"
+                className="font-lore min-w-0 flex-1 rounded-none border-0 bg-black/20 px-4 py-3.5 text-base normal-case tracking-[0.02em] text-slate-200 focus:bg-black/40 focus:outline-none transition-all sm:px-6 sm:py-4 sm:text-lg md:text-[1.125rem]"
               />
             </motion.div>
 
             {/* Campo Password */}
             <motion.div
-              className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4"
+              className="grid grid-cols-1 gap-1.5 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-3"
               initial={reduce ? false : { opacity: 0 }}
               animate={reduce ? false : { opacity: 1 }}
               transition={{
@@ -90,7 +91,7 @@ export function LoginPanel() {
             >
               <label
                 htmlFor="password"
-                className="font-lore shrink-0 text-left text-base font-normal normal-case tracking-normal text-white/85 antialiased sm:w-[11.75rem] sm:text-lg sm:leading-snug sm:pt-0.5 md:text-xl"
+                className="font-lore text-left text-base font-normal normal-case tracking-normal text-white/85 antialiased sm:text-lg sm:leading-snug sm:pt-0.5 md:text-xl"
               >
                 Password
               </label>
@@ -100,7 +101,7 @@ export function LoginPanel() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="font-optimus min-w-0 flex-1 rounded-none border border-white/10 bg-black/20 px-4 py-3.5 text-base uppercase tracking-[0.12em] text-slate-200 focus:border-white/40 focus:bg-black/40 focus:outline-none transition-all sm:px-6 sm:py-4 sm:text-lg sm:tracking-[0.2em] md:text-[1.125rem]"
+                className="font-lore min-w-0 flex-1 rounded-none border-0 bg-black/20 px-4 py-3.5 text-base normal-case tracking-[0.02em] text-slate-200 focus:bg-black/40 focus:outline-none transition-all sm:px-6 sm:py-4 sm:text-lg md:text-[1.125rem]"
               />
             </motion.div>
           </div>
@@ -117,15 +118,15 @@ export function LoginPanel() {
           >
             <button
               type="submit"
-              className="font-lore group relative flex w-full justify-center rounded-none border border-white/20 bg-black/40 px-3 py-4 text-lg font-normal tracking-[0.06em] text-white antialiased transition-all hover:bg-white/10 hover:border-white/40 active:scale-[0.98] sm:tracking-[0.07em] md:tracking-[0.08em]"
+              className="souls-amber-highlight font-lore group relative flex w-full items-center justify-center rounded-none border-0 bg-transparent px-3 py-1.5 text-lg font-normal normal-case tracking-[0.04em] text-[#f3ede0] [text-shadow:0_1px_0_rgba(0,0,0,0.8)] antialiased transition-[transform] duration-200 active:scale-[0.98] sm:text-xl md:text-2xl"
             >
-              Restore humanity
+              Reverse hollowing
             </button>
           </motion.div>
 
           {/* Footer del Login */}
           <motion.div
-            className="font-lore pt-4 text-center text-lg normal-case tracking-normal text-white/85 antialiased sm:text-xl md:text-[1.35rem] md:leading-relaxed"
+            className="font-lore pt-4 text-center text-base font-normal normal-case tracking-normal text-white/85 antialiased sm:text-lg md:text-xl md:leading-relaxed"
             initial={reduce ? false : { opacity: 0 }}
             animate={reduce ? false : { opacity: 1 }}
             transition={{
@@ -137,7 +138,7 @@ export function LoginPanel() {
             No character yet?{" "}
             <a
               href="/register"
-              className="font-semibold text-white underline-offset-8 transition-all hover:text-white/95 hover:underline"
+              className="font-normal text-white/85 underline-offset-8 transition-colors hover:text-[#8b4513] hover:no-underline"
             >
               Rekindle your path
             </a>

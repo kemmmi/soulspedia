@@ -94,6 +94,7 @@ html {
   /* Añadimos las familias para que Tailwind las reconozca */
   --font-optimus: "OptimusPrinceps", serif;
   --font-lore: var(--font-ds-inventory), serif;
+  --font-ds-leveling: var(--font-ds-leveling), serif;
 }
 
 body {
@@ -112,8 +113,7 @@ body {
 
 .font-lore {
   /* Esta clase ahora usará la fuente EB Garamond del inventario */
-  font-family: var(--font-ds-inventory), Georgia, serif !important;
-  color: #e2e2d5; /* Color hueso de Dark Souls */
+  font-family: var(--font-ds-inventory), Georgia, serif;
   font-weight: 400;
 }
 
@@ -122,7 +122,22 @@ body {
   font-style: normal;
 }
 
+.souls-amber-highlight {
+  position: relative;
+  background-color: transparent;
+}
 
+/* Barra plana, sin brillos ni texturas */
+.souls-amber-highlight:hover,
+.souls-amber-highlight:focus-visible {
+  background-color: #8b4513;
+  outline: none;
+}
+
+.font-ds-leveling {
+  font-family: var(--font-ds-leveling), serif;
+  font-weight: 400;
+}
 
 /* Quitar flechas de inputs numéricos */
 input[type="number"]::-webkit-outer-spin-button,
