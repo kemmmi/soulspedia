@@ -1,8 +1,25 @@
 "use client";
 
 import { fsMotion } from "@/lib/motion/fromSoftware";
+import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+
+function getDisplayName(user: { email?: string | null; user_metadata?: Record<string, unknown> } | null) {
+  const meta = (user?.user_metadata ?? {}) as Record<string, unknown>;
+  const fromMeta =
+    (typeof meta.full_name === "string" && meta.full_name) ||
+    (typeof meta.name === "string" && meta.name) ||
+    (typeof meta.preferred_username === "string" && meta.preferred_username) ||
+    null;
+
+  if (fromMeta) return fromMeta;
+
+  const email = user?.email ?? null;
+  if (!email) return null;
+  return email.split("@")[0] ?? email;
+}
 
 /** Wordmark SOULSPEDIA — Optimus Princeps, estilo alma oscura. */
 export const brandWordmarkClassName =
@@ -20,6 +37,32 @@ const navLinkClass =
 export function SiteHeader() {
   const reduce = useReducedMotion();
   const ease = fsMotion.ease;
+
+  const [userLabel, setUserLabel] = useState<string | null>(null);
+
+  const accountHref = useMemo(() => (userLabel ? "/account" : "/login"), [userLabel]);
+  const accountText = useMemo(() => (userLabel ? userLabel : "Login"), [userLabel]);
+
+  useEffect(() => {
+    let alive = true;
+
+    async function init() {
+      const { data } = await supabase.auth.getUser();
+      if (!alive) return;
+      setUserLabel(getDisplayName(data.user));
+    }
+
+    void init();
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserLabel(getDisplayName(session?.user ?? null));
+    });
+
+    return () => {
+      alive = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
 
   return (
     <motion.header
@@ -63,8 +106,8 @@ export function SiteHeader() {
             aria-hidden
             className="h-[1px] w-[0.9rem] shrink-0 bg-white/72 md:w-[1.05rem]"
           />
-          <Link href="/login" className={navLinkClass}>
-            Login
+          <Link href={accountHref} className={navLinkClass}>
+            {accountText}
           </Link>
         </nav>
       </div>
