@@ -3,7 +3,7 @@ import LoreEffects from "@/components/LoreEffects";
 
 export default function DarkSoulsPage() {
   // Asegúrate de que este nombre sea EXACTO al del archivo en /public
-  const imageName = "darksoulsfondo3.jpg"; 
+  const imageName = "fondoartorias.png"; 
 
   return (
     <main className="relative flex min-h-0 w-full flex-1 flex-col overflow-x-hidden bg-black antialiased">
