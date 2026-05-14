@@ -77,9 +77,16 @@ function TrilogyHubInner() {
 
   const activePanel = hoveredPanel ?? "ds2";
 
-  const offset =
-    hoveredPanel === "ds1" ? 18
-    : hoveredPanel === "ds3" ? -18
+  // ds1Offset: positive = DS1 expands right, negative = DS1 contracts left
+  const ds1Offset =
+    hoveredPanel === "ds1" ? 10
+    : phase === "all-visible" ? -11
+    : 0;
+
+  // ds3Offset: negative = DS3 expands left, positive = DS3 contracts right
+  const ds3Offset =
+    hoveredPanel === "ds3" ? -10
+    : phase === "all-visible" ? 11
     : 0;
 
   function getClipPath(id: PanelId): string {
@@ -88,13 +95,13 @@ function TrilogyHubInner() {
       return "polygon(0 0, 100% 0, 100% 100%, 0 100%)";
     }
     if (id === "ds1") {
-      const t = Math.min(36 + offset, 100);
-      const b = Math.min(30 + offset, 100);
+      const t = Math.min(36 + ds1Offset, 100);
+      const b = Math.min(30 + ds1Offset, 100);
       return `polygon(0 0, ${t}% 0, ${b}% 100%, 0 100%)`;
     }
     if (id === "ds3") {
-      const t = Math.max(70 + offset, 0);
-      const b = Math.max(64 + offset, 0);
+      const t = Math.max(70 + ds3Offset, 0);
+      const b = Math.max(64 + ds3Offset, 0);
       return `polygon(${t}% 0, 100% 0, 100% 100%, ${b}% 100%)`;
     }
     return clipPathsRest[id];
@@ -103,13 +110,31 @@ function TrilogyHubInner() {
   function getFilter(id: PanelId): string {
     if (id === "ds2") {
       if (phase === "hidden" || phase === "lines" || phase === "ds1-bw")
-        return "grayscale(100%) brightness(0.55)";
+        return "grayscale(100%) brightness(0.45)";
       if (hoveredPanel && hoveredPanel !== "ds2") return "grayscale(100%) brightness(0.4)";
       return "grayscale(0%) brightness(1)";
     }
     if (hoveredPanel === id) return "grayscale(0%) brightness(0.9)";
     if (hoveredPanel === null) return "grayscale(100%) brightness(0.45)";
     return "grayscale(100%) brightness(0.4)";
+  }
+
+  function getImageX(id: PanelId): string {
+    if (id === "ds1") {
+      if (hoveredPanel === "ds1") return "-26vw";
+      return "-37vw";
+    }
+    if (id === "ds2") {
+      if (hoveredPanel === "ds1") return "-1vw";
+      if (hoveredPanel === "ds3") return "-21vw";
+      return "-10vw";
+    }
+    if (id === "ds3") {
+      if (hoveredPanel === "ds3") return "53vw";
+      if (hoveredPanel === "ds1") return "62vw";
+      return "62vw";
+    }
+    return "0vw";
   }
 
   function getTransition(id: PanelId): string {
@@ -124,7 +149,6 @@ function TrilogyHubInner() {
     <div
       className="fixed inset-0 bg-[#050505] text-white"
       style={{ pointerEvents: interactive ? "auto" : "none" }}
-      onMouseLeave={() => setHoveredPanel(null)}
     >
       {/* Líneas SVG — solo en fases lines y ds1-bw */}
       <svg
@@ -135,8 +159,26 @@ function TrilogyHubInner() {
           transition: `opacity 0.3s ${cssEase}`,
         }}
       >
-        <line x1="36%" y1="0%" x2="30%" y2="100%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-        <line x1="70%" y1="0%" x2="64%" y2="100%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+        {/* Línea izquierda — entra desde arriba */}
+        <motion.line
+          x1="36%" y1="0%" x2="30%" y2="100%"
+          stroke="rgba(255,255,255,0.15)"
+          strokeWidth="1"
+          strokeDasharray="2000"
+          initial={{ strokeDashoffset: reduce ? 0 : 2000 }}
+          animate={{ strokeDashoffset: phase === "lines" || phase === "ds1-bw" ? 0 : 2000 }}
+          transition={{ duration: 0.9, ease: [0.33, 0, 0.17, 1] }}
+        />
+        {/* Línea derecha — entra desde abajo (coordenadas invertidas) */}
+        <motion.line
+          x1="64%" y1="100%" x2="70%" y2="0%"
+          stroke="rgba(255,255,255,0.15)"
+          strokeWidth="1"
+          strokeDasharray="2000"
+          initial={{ strokeDashoffset: reduce ? 0 : 2000 }}
+          animate={{ strokeDashoffset: phase === "lines" || phase === "ds1-bw" ? 0 : 2000 }}
+          transition={{ duration: 0.9, ease: [0.33, 0, 0.17, 1] }}
+        />
       </svg>
 
       {PANELS.map((panel) => {
@@ -147,7 +189,7 @@ function TrilogyHubInner() {
         return (
           <div
             key={panel.id}
-            className="absolute inset-0"
+            className="absolute inset-0 bg-[#050505]"
             style={{
               clipPath: getClipPath(panel.id),
               zIndex: zIndexes[panel.id],
@@ -204,8 +246,12 @@ function TrilogyHubInner() {
                   initial={{ scale: 1.06 }}
                   animate={{
                     scale: phase === "hidden" ? 1.06 : hoveredPanel === panel.id ? 1.03 : 1.0,
+                    x: getImageX(panel.id),
                   }}
-                  transition={{ duration: 2.2, ease: imageRevealEase }}
+                  transition={{
+                    scale: { duration: 2.2, ease: imageRevealEase },
+                    x: { duration: 0.9, ease: [0.33, 0, 0.17, 1] },
+                  }}
                 >
                   <Image
                     src={panel.imageSrc}
@@ -219,7 +265,7 @@ function TrilogyHubInner() {
                       ? "25% center" 
                       : panel.id === "ds2" 
                       ? "80% center" 
-                      : "center center" 
+                      : "60% center" 
                   }}
                   />
                 </motion.div>
@@ -228,30 +274,76 @@ function TrilogyHubInner() {
                 <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                 <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/30 to-transparent" />
 
-                {/* Título */}
-                <motion.div
-                  className="pointer-events-none absolute bottom-0 left-0 z-10 p-10"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{
-                    opacity: showContent ? 1 : 0,
-                    y: showContent ? 0 : 8,
-                  }}
-                  transition={{
-                    duration: fsMotion.dur.headline,
-                    delay: showContent ? 0.2 : 0,
-                    ease: fsMotion.ease,
-                  }}
-                >
-                  <p className="mb-1 font-lore text-xs tracking-tight text-white/40">
-                    {panel.subtitle}
-                  </p>
-                  <h2 className="font-optimus text-3xl uppercase tracking-[0.06em] text-amber-100/90 [text-shadow:0_0_14px_rgba(0,0,0,0.82),0_0_42px_rgba(75,42,12,0.38)]">
-                    {panel.title}
-                  </h2>
-                  <p className="mt-2 font-lore text-sm text-white/55">
-                    Entrar al archivo →
-                  </p>
-                </motion.div>
+                {/* Título / Logo */}
+                {panel.id === "ds1" ? (
+                  <motion.div
+                    className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center justify-center"
+                    style={{ width: "43vw" }}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{
+                      opacity: showContent ? 1 : 0,
+                      y: showContent ? 0 : 8,
+                    }}
+                    transition={{
+                      duration: showContent ? fsMotion.dur.headline : 0.15,
+                      delay: showContent ? 0.2 : 0,
+                      ease: fsMotion.ease,
+                    }}
+                  >
+                    <Image
+                      src="/darksoulslogo1.png"
+                      alt="Dark Souls"
+                      width={220}
+                      height={110}
+                      className="object-contain"
+                    />
+                  </motion.div>
+                ) : panel.id === "ds2" ? (
+                  <motion.div
+                    className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{
+                      opacity: showContent ? 1 : 0,
+                      y: showContent ? 0 : 8,
+                    }}
+                    transition={{
+                      duration: showContent ? fsMotion.dur.headline : 0.15,
+                      delay: showContent ? 0.2 : 0,
+                      ease: fsMotion.ease,
+                    }}
+                  >
+                    <Image
+                      src="/darksouls2logo.png"
+                      alt="Dark Souls II"
+                      width={220}
+                      height={110}
+                      className="object-contain"
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    className="pointer-events-none absolute inset-y-0 right-0 z-10 flex items-center justify-center"
+                    style={{ width: "43vw" }}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{
+                      opacity: showContent ? 1 : 0,
+                      y: showContent ? 0 : 8,
+                    }}
+                    transition={{
+                      duration: showContent ? fsMotion.dur.headline : 0.15,
+                      delay: showContent ? 0.2 : 0,
+                      ease: fsMotion.ease,
+                    }}
+                  >
+                    <Image
+                      src="/daksouls3logo.png"
+                      alt="Dark Souls III"
+                      width={220}
+                      height={110}
+                      className="object-contain"
+                    />
+                  </motion.div>
+                )}
                 </motion.div>
               </Link>
             </motion.div>
