@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Characters — Dark Souls | Soulspedia",
@@ -98,15 +97,6 @@ export default function DarkSoulsCharactersPage() {
   return (
     <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
       <div className="page-shell relative z-10 flex w-full min-w-0 flex-1 flex-col items-center pb-12 pt-6 md:pb-16 md:pt-8">
-        <div className="mb-8 flex w-full max-w-6xl justify-start lg:max-w-7xl">
-          <Link
-            href="/dark-souls"
-            className={`text-sm font-semibold text-white/55 transition-colors hover:text-white ${heroTracking}`}
-          >
-            ← DARK SOULS
-          </Link>
-        </div>
-
         <header className="mb-10 flex w-full max-w-5xl flex-col items-center text-center md:mb-12 lg:max-w-6xl">
           <h1
             className={`text-4xl font-semibold leading-none text-white drop-shadow-[0_0_32px_rgba(255,255,255,0.55)] sm:text-5xl md:text-6xl lg:text-7xl lg:drop-shadow-[0_0_40px_rgba(255,255,255,0.5)] ${gamePageTitleTracking}`}
