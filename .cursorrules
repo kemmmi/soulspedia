@@ -27,7 +27,9 @@ These skill files contain the detailed rules for each domain.
 - Work section-by-section. Never refactor a whole page in one step.
 - If context is missing, ask for a URL or search before assuming.
 - Use Supabase MCP if available; otherwise use `@/lib/supabase.ts`.
-- Before running any terminal command, explain in one line what it does and why.
+- Before running any terminal command or file system operation 
+  (searching, reading, listing files), explain in one line what 
+  it does and why.
 ---
 
 ## Key Files
