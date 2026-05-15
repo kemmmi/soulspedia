@@ -61,11 +61,11 @@ function TrilogyHubInner() {
 
   useEffect(() => {
     setPhase("hidden");
-    const t1 = window.setTimeout(() => setPhase("lines"),       800);
-    const t2 = window.setTimeout(() => setPhase("ds1-bw"),     1700);
-    const t3 = window.setTimeout(() => setPhase("ds1-color"),  3100);
-    const t4 = window.setTimeout(() => setPhase("all-visible"), 3100);
-    const t5 = window.setTimeout(() => setInteractive(true), 4500);
+    const t1 = window.setTimeout(() => setPhase("lines"),        1200);
+    const t2 = window.setTimeout(() => setPhase("ds1-bw"),       2600);
+    const t3 = window.setTimeout(() => setPhase("ds1-color"),    5000);
+    const t4 = window.setTimeout(() => setPhase("all-visible"),  5000);
+    const t5 = window.setTimeout(() => setInteractive(true),     7000);
     return () => {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
@@ -213,8 +213,8 @@ function TrilogyHubInner() {
                         : "inset(0% 0% 100% 0%)"),
               }}
               transition={{
-                duration: 1.1,
-                delay: panel.id === "ds2" ? 0 : panel.id === "ds1" ? 0 : 0.15,
+                duration: 1.2,
+                delay: panel.id === "ds2" ? 0 : panel.id === "ds1" ? 0 : 0.2,
                 ease: imageRevealEase,
               }}
             >
@@ -236,7 +236,7 @@ function TrilogyHubInner() {
                             : "inset(0% 0% 100% 0%)"),
                   }}
                   transition={{
-                    duration: 1.8,
+                    duration: 2.0,
                     ease: imageRevealEase,
                   }}
                 >

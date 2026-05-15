@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import { ForumThreadList } from "@/components/forum/ForumThreadList";
 
 export const metadata: Metadata = {
   title: "Forum — Dark Souls III | Soulspedia",
@@ -26,7 +28,7 @@ export default function DarkSouls3ForumPage() {
           </Link>
         </div>
 
-        <header className="mb-8 text-center">
+        <header className="mb-10 text-center">
           <h1
             className={`text-4xl font-semibold leading-none text-white drop-shadow-[0_0_32px_rgba(255,255,255,0.55)] sm:text-5xl md:text-6xl ${gamePageTitleTracking}`}
           >
@@ -35,26 +37,20 @@ export default function DarkSouls3ForumPage() {
           <p
             className={`mx-auto mt-5 max-w-2xl text-pretty px-2 text-sm font-semibold leading-relaxed text-white/75 sm:mt-6 sm:text-base ${heroTracking}`}
           >
-            A place for registered members to open topics, reply to each
-            other, and debate lore — by game, by region, or by character.
+            A place for registered members to open topics, reply to each other,
+            and debate lore — by game, by region, or by character.
           </p>
         </header>
 
-        <section
-          className={`w-full max-w-2xl rounded-md border border-neutral-500/25 bg-neutral-950/40 px-6 py-10 text-center ${heroTracking}`}
-          aria-labelledby="forum-placeholder-ds3"
+        <Suspense
+          fallback={
+            <p className="font-lore text-sm text-white/35">
+              Loading threads…
+            </p>
+          }
         >
-          <h2
-            id="forum-placeholder-ds3"
-            className="text-sm font-semibold uppercase tracking-widest text-white/50"
-          >
-            Coming soon
-          </h2>
-          <p className="mt-4 text-sm font-semibold leading-relaxed text-white/65 sm:text-base">
-            Threads, categories, and post editor will live here — tied to
-            accounts and moderation as you build the backend.
-          </p>
-        </section>
+          <ForumThreadList game="ds3" />
+        </Suspense>
       </div>
     </div>
   );
