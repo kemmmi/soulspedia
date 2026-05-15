@@ -1,19 +1,16 @@
 "use client";
 
+import { getAuthDisplayName } from "@/lib/authDisplayName";
 import { fsMotion } from "@/lib/motion/fromSoftware";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 
-function getDisplayName(user: { email?: string | null; user_metadata?: Record<string, unknown> } | null) {
-  const meta = (user?.user_metadata ?? {}) as Record<string, unknown>;
-  const fromMeta =
-    (typeof meta.full_name === "string" && meta.full_name) ||
-    (typeof meta.name === "string" && meta.name) ||
-    (typeof meta.preferred_username === "string" && meta.preferred_username) ||
-    null;
-
+function getHeaderUserLabel(
+  user: { email?: string | null; user_metadata?: Record<string, unknown> } | null,
+) {
+  const fromMeta = getAuthDisplayName(user);
   if (fromMeta) return fromMeta;
 
   const email = user?.email ?? null;
@@ -49,13 +46,13 @@ export function SiteHeader() {
     async function init() {
       const { data } = await supabase.auth.getUser();
       if (!alive) return;
-      setUserLabel(getDisplayName(data.user));
+      setUserLabel(getHeaderUserLabel(data.user));
     }
 
     void init();
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUserLabel(getDisplayName(session?.user ?? null));
+      setUserLabel(getHeaderUserLabel(session?.user ?? null));
     });
 
     return () => {

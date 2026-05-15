@@ -1,18 +1,9 @@
 "use client";
 
+import { getAuthDisplayName, SOULSPEDIA_DISPLAY_NAME_KEY } from "@/lib/authDisplayName";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-function getUserDisplayName(user: { user_metadata?: Record<string, unknown> } | null) {
-  const meta = (user?.user_metadata ?? {}) as Record<string, unknown>;
-  const fromMeta =
-    (typeof meta.full_name === "string" && meta.full_name) ||
-    (typeof meta.name === "string" && meta.name) ||
-    (typeof meta.preferred_username === "string" && meta.preferred_username) ||
-    null;
-  return fromMeta;
-}
 
 export default function AccountPage() {
   const router = useRouter();
@@ -37,7 +28,7 @@ export default function AccountPage() {
       const { data } = await supabase.auth.getUser();
       if (!alive) return;
       const userEmail = data.user?.email ?? null;
-      const userName = getUserDisplayName(data.user ?? null);
+      const userName = getAuthDisplayName(data.user ?? null);
       setEmail(userEmail);
       setCurrentName(userName);
       setNameDraft(userName ?? "");
@@ -66,7 +57,11 @@ export default function AccountPage() {
 
     setSavingName(true);
     const { data, error: updateError } = await supabase.auth.updateUser({
-      data: { full_name: trimmed },
+      data: {
+        [SOULSPEDIA_DISPLAY_NAME_KEY]: trimmed,
+        full_name: trimmed,
+        name: trimmed,
+      },
     });
     setSavingName(false);
 
@@ -75,7 +70,10 @@ export default function AccountPage() {
       return;
     }
 
-    setCurrentName(getUserDisplayName(data.user ?? null));
+    await supabase.auth.refreshSession();
+
+    const { data: refreshed } = await supabase.auth.getUser();
+    setCurrentName(getAuthDisplayName(refreshed.user ?? data.user ?? null));
     setNotice("Nombre actualizado.");
   }
 
